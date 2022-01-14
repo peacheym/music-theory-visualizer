@@ -10,8 +10,12 @@ TBD
 
 A list of relevant papers are here:
 
+- [Visualizing the Semantic Structure in Classical Music Works](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=5072213)
+
 - [A Survey of Music Visualization Techniques](https://dl-acm-org.ezproxy.library.dal.ca/doi/abs/10.1145/3461835)
 - [A Color-based Visualization Approach to understand harmonic structures of Musical Compositions](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=7272579)
 - [Visual Representations for Music Understanding Improvement](http://cmmr2017.inesctec.pt/wp-content/uploads/2017/09/33_CMMR_2017_paper_82.pdf)
 - [Isochords: Visualizing Structure in Music](https://social.cs.uiuc.edu/papers/pdfs/bergstrom-isochords-2007.pdf)
+- [PULSE: An Infrastructure for Collection of Audience Heartbeats for Music Visualization](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=7457074)
+- [A Visual Exploration of Melodic Relationships within Traditional Music Collections](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=8564207)
 - More tbd!
