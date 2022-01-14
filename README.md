@@ -21,4 +21,6 @@ A list of relevant papers are here:
 - [Isochords: Visualizing Structure in Music](https://social.cs.uiuc.edu/papers/pdfs/bergstrom-isochords-2007.pdf)
 - [PULSE: An Infrastructure for Collection of Audience Heartbeats for Music Visualization](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=7457074)
 - [A Visual Exploration of Melodic Relationships within Traditional Music Collections](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=8564207)
+- [Music Visualization Based on Spherical Projection With Adjustable Metrics](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8850020)
+- [Big Data Visualization and Visual Anlytics for Music Data Mining](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=8564166)
 - More tbd!
