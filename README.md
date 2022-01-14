@@ -2,6 +2,11 @@
 
 Term project for CSCI 6406 in Winter 2022
 
+## Seminar Paper
+
+- [Visualizing the Semantic Structure in Classical Music Works](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=5072213)
+
+
 ## Project Description
 
 TBD
@@ -9,8 +14,6 @@ TBD
 ## Literature Review
 
 A list of relevant papers are here:
-
-- [Visualizing the Semantic Structure in Classical Music Works](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=5072213)
 
 - [A Survey of Music Visualization Techniques](https://dl-acm-org.ezproxy.library.dal.ca/doi/abs/10.1145/3461835)
 - [A Color-based Visualization Approach to understand harmonic structures of Musical Compositions](https://ieeexplore-ieee-org.ezproxy.library.dal.ca/stamp/stamp.jsp?tp=&arnumber=7272579)
