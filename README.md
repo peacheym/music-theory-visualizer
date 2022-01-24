@@ -9,7 +9,7 @@ Term project for CSCI 6406 in Winter 2022
 
 ## Project Description
 
-TBD
+TBD (Thinking Theory Vis)
 
 ## Literature Review
 
