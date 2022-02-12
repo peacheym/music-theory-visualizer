@@ -71,5 +71,9 @@ function generateChart2() {
     .attr("y", 300)
     .attr("x", 1080)
     .style("border", "1px black solid");
-  chart2.append("text").attr("y", 50).text("Chart 2");
+  chart2
+    .append("text")
+    .attr("y", 30)
+    .attr("fill", "#374faa")
+    .text("COVID-19 home testing study over time");
 }

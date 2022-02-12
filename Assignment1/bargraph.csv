@@ -1,6 +1,5 @@
 Label,Value
-short,16
-medium,36
-long,36
-dontKnow,10
-dontKnow,10
+0,16
+1,36
+2,36
+3,10
