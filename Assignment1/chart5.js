@@ -49,95 +49,97 @@ function generateChart5() {
     width = 540 - margin.left - margin.right,
     height = 280 - margin.top - margin.bottom;
 
-  var n = 5;
+  d3.csv("./chart5.csv", function (data) {
 
-  var xScale = d3
-    .scaleLinear()
-    .domain([0, n - 1])
-    .range([0, width]);
-  var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+    var xScale = d3
+      .scaleLinear()
+      .domain([0, 4])
+      .range([0, width]);
+    var yScale = d3.scaleLinear().domain([40, 100]).range([height, 0]);
 
-  var line = d3
-    .line()
-    .x(function (d, i) {
-      return xScale(i);
-    })
-    .y(function (d) {
-      return yScale(d.y);
-    })
-    .curve(d3.curveMonotoneX);
+    var line = d3
+      .line()
+      .x(function (d) {
+        return xScale(d.label);
+      })
+      .y(function (d) {
+        return yScale(d.value);
+      })
+      .curve(d3.curveMonotoneX);
 
-  var dataset = d3.range(n).map(function (d) {
-    return { y: Math.round(d3.randomUniform(100)()) };
+    // var dataset = d3.range(n).map(function (d) {
+    //   return { y: Math.round(d3.randomUniform(100)()) };
+    // });
+
+    var chart5 = svgContainer
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .attr("x", 250)
+      .attr("y", 1050)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    chart5
+      .append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(xScale));
+
+    // chart5.append("g").attr("class", "y axis").call(d3.axisLeft(yScale));
+
+    chart5
+      .append("path")
+      .datum(data) // 10. Binds data to the line
+      .attr("class", "line") // Assign a class for styling
+      .attr("fill", "none")
+      .attr("stroke", "#3e9798")
+      .attr("stroke-width", "5")
+      .attr("d", line); // 11. Calls the line generator
+
+    chart5
+      .append("text")
+      .attr("y", -70)
+      .attr("fill", "#374faa")
+      .style("font-weight", "normal")
+      .attr("stroke-width", "0")
+      .style("font-size", "14px")
+      .text(
+        "To what extent do you agree or disagree with each of the following?"
+      );
+
+    chart5
+      .append("text")
+      .attr("y", -50)
+      .attr("fill", "#374faa")
+      .attr("stroke-width", "0")
+      .style("font-size", "14px")
+      .text('"I feel like things in my country are out of control right now"');
+
+    chart5
+      .append("text")
+      .attr("y", -20)
+      .attr("x", 80)
+      .attr("stroke-width", "0")
+      .attr("fill", "#374faa")
+      .attr("font-weight", "bold")
+      .style("font-size", "14px")
+      .text("% 'Strongly agree' + 'Somewhat agree'");
+    chart5
+      .selectAll(".dot")
+      .data(data)
+      .enter()
+      .append("text") // Uses the enter().append() method
+      .attr("x", function (d, i) {
+        return xScale(i);
+      })
+      .attr("y", function (d) {
+        return yScale(d.value) - 20;
+      })
+      .attr("fill", "#3e9798")
+      .attr("font-weight", "bold")
+      .text(function (d) {
+        return d.value + " %";
+      });
   });
-
-  var chart5 = svgContainer
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .attr("x", 250)
-    .attr("y", 1050)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  chart5
-    .append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(xScale));
-
-  // chart5.append("g").attr("class", "y axis").call(d3.axisLeft(yScale));
-
-  chart5
-    .append("path")
-    .datum(dataset) // 10. Binds data to the line
-    .attr("class", "line") // Assign a class for styling
-    .attr("fill", "none")
-    .attr("stroke", "#3e9798")
-    .attr("stroke-width", "10")
-    .attr("d", line); // 11. Calls the line generator
-
-  chart5
-    .append("text")
-    .attr("y", -70)
-    .attr("fill", "#374faa")
-    .style("font-weight", "normal")
-    .attr("stroke-width", "0")
-    .style("font-size", "14px")
-    .text(
-      "To what extent do you agree or disagree with each of the following?"
-    );
-
-  chart5
-    .append("text")
-    .attr("y", -50)
-    .attr("fill", "#374faa")
-    .attr("stroke-width", "0")
-    .style("font-size", "14px")
-    .text('"I feel like things in my country are out of control right now"');
-
-  chart5
-    .append("text")
-    .attr("y", -20)
-    .attr("x", 80)
-    .attr("stroke-width", "0")
-    .attr("fill", "#374faa")
-    .attr("font-weight", "bold")
-    .style("font-size", "14px")
-    .text("% 'Strongly agree' + 'Somewhat agree'");
-  chart5
-    .selectAll(".dot")
-    .data(dataset)
-    .enter()
-    .append("text") // Uses the enter().append() method
-    .attr("x", function (d, i) {
-      return xScale(i);
-    })
-    .attr("y", function (d) {
-      return yScale(d.y) - 15;
-    })
-    .attr("fill", "#3e9798")
-    .text(function (d) {
-      return d.y + " %";
-    });
 }

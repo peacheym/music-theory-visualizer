@@ -51,87 +51,111 @@ function generateChart1() {
     width = 540 - margin.left - margin.right,
     height = 280 - margin.top - margin.bottom;
 
-  var n = 10;
+  d3.csv("./chart1.csv", function (data) {
+    console.log(data);
+    let n = 10;
+    var xScale = d3.scaleLinear().domain([0, 11]).range([0, width]);
+    var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 
-  var xScale = d3.scaleLinear().domain([0, 9]).range([0, width]);
-  var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+    var line = d3
+      .line()
+      .x(function (d) {
+        return xScale(d.label);
+      })
+      .y(function (d) {
+        return yScale(d.valueA);
+      })
+      .curve(d3.curveMonotoneX);
 
-  var line = d3
-    .line()
-    .x(function (d, i) {
-      return xScale(i);
-    })
-    .y(function (d) {
-      return yScale(d.y);
-    })
-    .curve(d3.curveMonotoneX);
+    var lineB = d3
+      .line()
+      .x(function (d) {
+        return xScale(d.label);
+      })
+      .y(function (d) {
+        return yScale(d.valueB);
+      })
+      .curve(d3.curveMonotoneX);
 
-  var dataset = d3.range(n).map(function (d) {
-    return { y: d3.randomUniform(100)() };
+    var chart1 = svgContainer
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .attr("x", 250)
+      .attr("y", 320)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // chart1
+    //   .append("g")
+    //   .attr("class", "x axis")
+    //   .attr("transform", "translate(0," + height + ")")
+    //   .call(d3.axisBottom(xScale));
+
+    // chart1.append("g").attr("class", "y axis").call(d3.axisLeft(yScale));
+
+    chart1
+      .append("path")
+      .datum(data) // 10. Binds data to the line
+      .attr("class", "line") // Assign a class for styling
+      .attr("fill", "none")
+      .attr("stroke", "#3e9798")
+      .attr("stroke-width", "10")
+      .attr("d", line); // 11. Calls the line generator
+    chart1
+      .append("path")
+      .datum(data) // 10. Binds data to the line
+      .attr("class", "line") // Assign a class for styling
+      .attr("fill", "none")
+      .attr("stroke", "#30469c")
+      .attr("stroke-width", "10")
+      .attr("d", lineB); // 11. Calls the line generator
+
+    chart1
+      .append("text")
+      .attr("y", -67)
+      .attr("fill", "#374faa")
+      .style("font-weight", "normal")
+      .style("font-size", "14px")
+      .attr("stroke-width", "0")
+      .text(
+        "How confident, if at all, would you say you are in the ability of the NHS to"
+      );
+
+    chart1
+      .append("text")
+      .attr("y", -47)
+      .attr("fill", "#374faa")
+      .attr("stroke-width", "0")
+      .style("font-size", "14px")
+      .text(
+        "deal with those who are ill as a result of getting the Coronavirus"
+      );
+
+    chart1
+      .append("text")
+      .attr("y", -10)
+      .attr("x", 150)
+      .attr("stroke", "black")
+      .style("font-size", "16px")
+      .text("Mar 2020 - Feb 2021");
+
+    // Box 2
+    chart1
+      .append("rect")
+      .attr("x", 430)
+      .attr("y", 110)
+      .attr("width", 15)
+      .attr("height", 50)
+      .attr("fill", "#374faa");
+
+    // Box 1
+    chart1
+      .append("rect")
+      .attr("x", 430)
+      .attr("y", 10)
+      .attr("width", 15)
+      .attr("height", 50)
+      .attr("fill", "#3e9798");
   });
-
-  var dataset2 = d3.range(n).map(function (d) {
-    return { y: d3.randomUniform(100)() };
-  });
-
-  var chart1 = svgContainer
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .attr("x", 250)
-    .attr("y", 320)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  // chart1
-  //   .append("g")
-  //   .attr("class", "x axis")
-  //   .attr("transform", "translate(0," + height + ")")
-  //   .call(d3.axisBottom(xScale));
-
-  // chart1.append("g").attr("class", "y axis").call(d3.axisLeft(yScale));
-
-  chart1
-    .append("path")
-    .datum(dataset) // 10. Binds data to the line
-    .attr("class", "line") // Assign a class for styling
-    .attr("fill", "none")
-    .attr("stroke", "#3e9798")
-    .attr("stroke-width", "10")
-    .attr("d", line); // 11. Calls the line generator
-  chart1
-    .append("path")
-    .datum(dataset2) // 10. Binds data to the line
-    .attr("class", "line") // Assign a class for styling
-    .attr("fill", "none")
-    .attr("stroke", "#30469c")
-    .attr("stroke-width", "10")
-    .attr("d", line); // 11. Calls the line generator
-
-  chart1
-    .append("text")
-    .attr("y", -67)
-    .attr("fill", "#374faa")
-    .style("font-weight", "normal")
-    .style("font-size", "14px")
-    .attr("stroke-width", "0")
-    .text(
-      "How confident, if at all, would you say you are in the ability of the NHS to"
-    );
-
-  chart1
-    .append("text")
-    .attr("y", -47)
-    .attr("fill", "#374faa")
-    .attr("stroke-width", "0")
-    .style("font-size", "14px")
-    .text("deal with those who are ill as a result of getting the Coronavirus");
-
-  chart1
-    .append("text")
-    .attr("y", -10)
-    .attr("x", 150)
-    .attr("stroke", "black")
-    .style("font-size", "16px")
-    .text("Mar 2020 - Feb 2021");
 }

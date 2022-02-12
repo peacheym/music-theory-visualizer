@@ -107,29 +107,6 @@ function generateChart6() {
     .attr("fill", "#374faa")
     .text("Never / I have no idea");
 
-  //   text6
-  //   .append("text")
-  //   .attr("y", 293)
-  //   .attr("x", 580)
-  //   .style("font-weight", "bold")
-  //   .style("font-size", "18px")
-  //   .attr("fill", "#374faa")
-  //   .text("16%");
-
-  // text6
-  //   .append("text")
-  //   .attr("y", 293)
-  //   .attr("x", 580)
-  //   .style("font-weight", "bold")
-  //   .style("font-size", "18px")
-  //   .attr("fill", "#374faa")
-  //   .text("10%");
-
-  // Create the Bar Chart
-  var margin = { top: 20, right: 50, bottom: 40, left: 90 },
-    width = 600 - margin.left - margin.right,
-    height = 250 - margin.top - margin.bottom;
-
   d3.csv("./bargraph.csv", function (data) {
     var bars = chart6.selectAll(".myBars").data(data).enter().append("rect");
     bars
@@ -141,7 +118,9 @@ function generateChart6() {
         return d.Value * 5;
       })
       .attr("height", 40)
-      .attr("fill", "#30469c");
+      .attr("fill", "#30469c")
+      .on("mouseover", handleMouseOver)
+      .on("mouseout", handleMouseOut);
 
     var texts = chart6.selectAll(".myTexts").data(data).enter().append("text");
 
@@ -158,5 +137,47 @@ function generateChart6() {
       .text(function (d) {
         return d.Value + " %";
       });
+
+    function handleMouseOver(d) {
+
+      // Use D3 to select element, change color and size
+      d3.select(this).attr("fill", "#17255e");
+
+      // // Specify where to put label of text
+      // chart6
+      //   .append("text")
+      //   .attr({
+      //     id: d.Label, // Create an id for text so we can select it later for removing on mouseout
+      //     x: function () {
+      //       return 150 + d.Value * 5 + 16;
+      //     },
+      //     y: function () {
+      //       return 30 + d.Label * 50;
+      //     },
+      //   })
+      //   .attr("fill", "#30469c")
+      //   .attr("font-size", 18)
+      //   .attr("font-weight", "bold")
+      //   .text(function () {
+      //     return d.Value + " %";
+      //   });
+    }
+
+    function handleMouseOut(d, i) {
+      console.log("out bar");
+      // Use D3 to select element, change color back to normal
+      d3.select(this).attr("fill", "#30469c");
+
+      // Select text by id and then remove
+      // d3.select("#t" + d.x + "-" + d.y + "-" + i).remove(); // Remove text location
+    }
   });
+
+  text6
+    .append("image")
+    .attr("xlink:href", "./clock.svg")
+    .attr("width", 140)
+    .attr("height", 140)
+    .attr("x", 225)
+    .attr("y", 120);
 }
