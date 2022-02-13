@@ -132,7 +132,7 @@ function generateChart1() {
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0)
         .duration(700)
-        .on("end", () => setTimeout(repeat, 1000));
+        // .on("end", () => setTimeout(repeat, 1000));
 
       var line2 = chart1
         .append("path")
@@ -151,7 +151,7 @@ function generateChart1() {
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0)
         .duration(700)
-        .on("end", () => setTimeout(repeat, 1000));
+        // .on("end", () => setTimeout(repeat, 1000));
 
       chart1
         .append("text")

@@ -77,7 +77,10 @@ function generateChart3() {
   });
   var data_ready = pie(d3.entries(data));
 
-  // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+  // Keep a reference to the donut generator for use with labels
+  donutChartBuilder = d3.arc().innerRadius(80).outerRadius(radius);
+
+  // Create donut chart
   chart3
     .append("g")
     .attr("transform", "translate(" + 220 + "," + 150 + ")")
@@ -85,19 +88,30 @@ function generateChart3() {
     .data(data_ready)
     .enter()
     .append("path")
-    .attr(
-      "d",
-      d3
-        .arc()
-        .innerRadius(80) // This is the size of the donut hole
-        .outerRadius(radius)
-    )
+    .attr("d", donutChartBuilder)
     .attr("fill", function (d) {
       return color(d.data.key);
+    });
+  // Add text labels to donut chart
+  chart3
+    .selectAll("mySlices")
+    .data(data_ready)
+    .enter()
+    .append("text")
+    .attr("fill", "#FFFFFF")
+    .attr("font-weight", "bold")
+    .attr("font-size", "18")
+    .text(function (d) {
+      return d.data.value + "%";
     })
-    .attr("stroke", "black")
-    .style("stroke-width", "2px")
-    .style("opacity", 0.7);
+    .attr("transform", function (d) {
+      translate = donutChartBuilder.centroid(d);
+      return (
+        "translate(" + (translate[0] + 220) + "," + (translate[1] + 151) + ")"
+      );
+    })
+    .style("text-anchor", "middle")
+    .style("font-size", 17);
 
   // Add above pie chart text
   chart3
