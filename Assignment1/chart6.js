@@ -107,7 +107,7 @@ function generateChart6() {
     .attr("fill", "#374faa")
     .text("Never / I have no idea");
 
-  d3.csv("./bargraph.csv", function (data) {
+  d3.csv("./csv-files/chart6.csv", function (data) {
     var bars = chart6.selectAll(".myBars").data(data).enter().append("rect");
     bars
       .attr("x", 150)
@@ -122,8 +122,8 @@ function generateChart6() {
       .on("mouseover", handleMouseOver)
       .on("mouseout", handleMouseOut);
 
+    // Add text labels to bar chart
     var texts = chart6.selectAll(".myTexts").data(data).enter().append("text");
-
     texts
       .attr("x", function (d) {
         return 150 + d.Value * 5 + 16;
@@ -131,48 +131,28 @@ function generateChart6() {
       .attr("y", function (d) {
         return 30 + d.Label * 50;
       })
+      .attr("id", function (d) {
+        return "id-" + d.Label;
+      })
       .attr("fill", "#30469c")
       .attr("font-size", 18)
       .attr("font-weight", "bold")
+      .attr("visibility", "hidden") // set to hidden by default, the user must hover to show the values
       .text(function (d) {
         return d.Value + " %";
       });
 
+    // Define event handlers
     function handleMouseOver(d) {
-
-      // Use D3 to select element, change color and size
-      d3.select(this).attr("fill", "#17255e");
-
-      // // Specify where to put label of text
-      // chart6
-      //   .append("text")
-      //   .attr({
-      //     id: d.Label, // Create an id for text so we can select it later for removing on mouseout
-      //     x: function () {
-      //       return 150 + d.Value * 5 + 16;
-      //     },
-      //     y: function () {
-      //       return 30 + d.Label * 50;
-      //     },
-      //   })
-      //   .attr("fill", "#30469c")
-      //   .attr("font-size", 18)
-      //   .attr("font-weight", "bold")
-      //   .text(function () {
-      //     return d.Value + " %";
-      //   });
+      d3.select("#id-" + d.Label).attr("visibility", "visible");
     }
 
-    function handleMouseOut(d, i) {
-      console.log("out bar");
-      // Use D3 to select element, change color back to normal
-      d3.select(this).attr("fill", "#30469c");
-
-      // Select text by id and then remove
-      // d3.select("#t" + d.x + "-" + d.y + "-" + i).remove(); // Remove text location
+    function handleMouseOut(d) {
+      d3.select("#id-" + d.Label).attr("visibility", "hidden");
     }
   });
-
+  
+  // Add clock SVG
   text6
     .append("image")
     .attr("xlink:href", "./clock.svg")

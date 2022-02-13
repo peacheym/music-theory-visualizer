@@ -22,10 +22,8 @@ Next, navigate to `<insert link>` to view the finished project.
 I have programmed several interactive components to fulfil the final 20% component of this assignment. A list of how each of these can be used by a user is as follows:
 
 - Chart 1: When a user clicks on the date, they are able to toggle between data for 2021 and 2022.
-- Chart 3
 - Chart 4: When the user clicks on any of the grey vertical lines, a tool tip is toggled to explain what that line means.
-- Chart 5
-- Chart 6
+- Chart 6 When the user hovers over any of the bars, the associated percentage value appears at the end of that bar
 
 ## Citations
 
@@ -33,3 +31,6 @@ I used several references to the d3 documentation while learning about how it wo
 
 - https://www.tutorialsteacher.com/d3js/select-dom-element-using-d3js | used to learn how to select and delete svg elements by ID, found it in the notes later.
 - https://d3-wiki.readthedocs.io/zh_CN/master/SVG-Axes/ | used to learn how to customize axes and their tick
+- https://iconmonstr.com/time-3-svg/ | Clock SVG
+- https://iconmonstr.com/arrow-1-svg/ | Arrow SVG
+- https://uxwing.com/human-icon/ | Human SVG

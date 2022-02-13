@@ -54,7 +54,7 @@ function generateChart4() {
     width = 540 - margin.left - margin.right,
     height = 280 - margin.top - margin.bottom;
 
-  d3.csv("./chart4.csv", function (data) {
+  d3.csv("./csv-files/chart4.csv", function (data) {
     var xScale = d3.scaleLinear().domain([0, 30]).range([0, width]);
     var yScale = d3.scaleLinear().domain([0, 65]).range([height, 0]);
 

@@ -66,7 +66,7 @@ function generateChart1() {
     d3.select("#all").remove();
 
     // Get the data we need
-    d3.csv("./chart1.csv", function (data) {
+    d3.csv("./csv-files/chart1.csv", function (data) {
       var xScale = d3.scaleLinear().domain([0, 11]).range([0, width]);
       var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 
