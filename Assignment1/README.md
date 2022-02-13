@@ -27,6 +27,18 @@ I have programmed several interactive components to fulfil the final 20% compone
 - Chart 4: When the user clicks on any of the grey vertical lines, a tool tip is toggled to explain what that line means.
 - Chart 6 When the user hovers over any of the bars, the associated percentage value appears at the end of that bar
 
+## Directory Structure
+
+This submission contains an `index.html` that is the main entry point into the web view.
+
+The main index references a script called `main.js` which is responsible for populating the inital SVG container as well as the header text content.
+
+There are then six javascript files which follow the pattern `chartN.js` where the `N` refers to which chart on the main page that code is responsible for populating.
+
+The charts that require data access it through the csv files named `csv-files/chartN.csv` where `N` once again corresponds with the chart to which that data is needed for.
+
+Together, all of these files work to present the final submission.
+
 ## Citations
 
 I used several references to the d3 documentation while learning about how it worked for this assignment. While the work included as submission for this assignment is my own, some code aspects of it were inspired directly from this documentation. A set of links to specific pages of documentation I refered to is included below, along with the code snippets which utilized that information.
