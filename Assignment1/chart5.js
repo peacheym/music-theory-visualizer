@@ -50,11 +50,7 @@ function generateChart5() {
     height = 280 - margin.top - margin.bottom;
 
   d3.csv("./chart5.csv", function (data) {
-
-    var xScale = d3
-      .scaleLinear()
-      .domain([0, 4])
-      .range([0, width]);
+    var xScale = d3.scaleLinear().domain([0, 4]).range([0, width]);
     var yScale = d3.scaleLinear().domain([40, 100]).range([height, 0]);
 
     var line = d3
@@ -67,10 +63,6 @@ function generateChart5() {
       })
       .curve(d3.curveMonotoneX);
 
-    // var dataset = d3.range(n).map(function (d) {
-    //   return { y: Math.round(d3.randomUniform(100)()) };
-    // });
-
     var chart5 = svgContainer
       .append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -80,13 +72,23 @@ function generateChart5() {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    chart5
+    let labels = ["Aug", "Oct", "Nov", "Dec", "Jan", "Feb"];
+    let axisGen = d3.axisBottom(xScale);
+    axisGen.tickFormat((d, i) => labels[i]);
+    axisGen.ticks(4);
+    axisGen.tickSize(0);
+    let axis = chart5
       .append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(xScale));
+      .call(axisGen);
+    axis.select(".domain").remove();
 
-    // chart5.append("g").attr("class", "y axis").call(d3.axisLeft(yScale));
+    axis
+      .selectAll(".tick text")
+      .attr("font-weight", "bold")
+      .attr("font-size", 14)
+      .attr("fill", "#30469c");
 
     chart5
       .append("path")

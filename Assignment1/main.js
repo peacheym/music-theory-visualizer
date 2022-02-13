@@ -56,9 +56,26 @@ function generateHeader() {
     .attr("x", 30)
     .style("font-size", "20px")
     .style("fill", "white")
-    .text("For more information, visit http://loremipsum.com ...");
+    .text("For more information, visit");
+
+  var headerP2 = svgContainer
+    .append("text")
+    .attr("y", 250)
+    .attr("x", 290)
+    .style("font-size", "20px")
+    .style("fill", "#0762bf")
+    .style("text-decoration", "underline")
+    .text(
+      "https://www.ipsos.com/en-uk/public-opinion-covid-19-coronavirus-pandemic"
+    );
 }
 
+/**
+ *
+ * The following function calls populate the SVG elements for each of the 6 chart quadrants on the page.
+ * Each quadrant's code is stored in a seperate file to establish some sense of modularity.
+ *
+ */
 generateHeader();
 generateChart1();
 generateChart2();

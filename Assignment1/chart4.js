@@ -54,8 +54,6 @@ function generateChart4() {
     height = 280 - margin.top - margin.bottom;
 
   d3.csv("./chart4.csv", function (data) {
-    console.log(data);
-    let n = 10;
     var xScale = d3.scaleLinear().domain([0, 30]).range([0, width]);
     var yScale = d3.scaleLinear().domain([0, 65]).range([height, 0]);
 
@@ -86,11 +84,37 @@ function generateChart4() {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    chart1
+    // chart1
+    //   .append("g")
+    //   .attr("class", "x axis")
+    //   .attr("transform", "translate(0," + height + ")")
+    //   .call(d3.axisBottom(xScale));
+
+    let labels = [
+      "Feb 7-9",
+      "Apr 16-19",
+      "Jun 11-14",
+      "Aug 27-30",
+      "Oct 22-25",
+      "Dec 17-20",
+      "Mar 11-14",
+    ];
+    let axisGen = d3.axisBottom(xScale);
+    axisGen.tickFormat((d, i) => labels[i]);
+    axisGen.ticks(5);
+    axisGen.tickSize(0);
+    let axis = chart1
       .append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(xScale));
+      .call(axisGen);
+    axis.select(".domain").remove();
+
+    axis
+      .selectAll(".tick text")
+      .attr("font-weight", "bold")
+      .attr("font-size", 11)
+      .attr("fill", "#30469c");
 
     // chart1.append("g").attr("class", "y axis").call(d3.axisLeft(yScale));
 
@@ -131,7 +155,6 @@ function generateChart4() {
       .attr("font-weight", "bold")
       .text(function (d) {
         if (d.label == 0 || d.label == 30) {
-          console.log("tada");
           return d.valueA + " %";
         }
         return;

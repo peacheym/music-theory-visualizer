@@ -47,115 +47,204 @@ function generateChart1() {
     .attr("fill", "white")
     .text("Since June 2020");
 
+  var chart1 = null;
+
   var margin = { top: 80, right: 100, bottom: 30, left: 50 },
     width = 540 - margin.left - margin.right,
     height = 280 - margin.top - margin.bottom;
+  function update(index) {
+    // Refresh the view
+    d3.select("#all").remove();
 
-  d3.csv("./chart1.csv", function (data) {
-    console.log(data);
-    let n = 10;
-    var xScale = d3.scaleLinear().domain([0, 11]).range([0, width]);
-    var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+    d3.csv("./chart1.csv", function (data) {
+      var xScale = d3.scaleLinear().domain([0, 11]).range([0, width]);
+      var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 
-    var line = d3
-      .line()
-      .x(function (d) {
-        return xScale(d.label);
-      })
-      .y(function (d) {
-        return yScale(d.valueA);
-      })
-      .curve(d3.curveMonotoneX);
+      var line = d3
+        .line()
+        .x(function (d) {
+          return xScale(d.label);
+        })
+        .y(function (d) {
+          if (index > 0) {
+            return yScale(d.valueA0);
+          } else {
+            return yScale(d.valueA1);
+          }
+        })
+        .curve(d3.curveMonotoneX);
 
-    var lineB = d3
-      .line()
-      .x(function (d) {
-        return xScale(d.label);
-      })
-      .y(function (d) {
-        return yScale(d.valueB);
-      })
-      .curve(d3.curveMonotoneX);
+      var lineB = d3
+        .line()
+        .x(function (d) {
+          return xScale(d.label);
+        })
+        .y(function (d) {
+          if (index > 0) {
+            return yScale(d.valueB0);
+          } else {
+            return yScale(d.valueB1);
+          }
+        })
+        .curve(d3.curveMonotoneX);
 
-    var chart1 = svgContainer
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .attr("x", 250)
-      .attr("y", 320)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      chart1 = svgContainer
+        .append("svg")
+        .attr("id", "all")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("x", 250)
+        .attr("y", 320)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    // chart1
-    //   .append("g")
-    //   .attr("class", "x axis")
-    //   .attr("transform", "translate(0," + height + ")")
-    //   .call(d3.axisBottom(xScale));
+      let labels = ["0%", "20%", "40%", "60%", "80%", "100%"];
+      let axisGen = d3.axisLeft(yScale);
+      axisGen.tickFormat((d, i) => labels[i]);
+      axisGen.ticks(4);
+      axisGen.tickSize(0);
 
-    // chart1.append("g").attr("class", "y axis").call(d3.axisLeft(yScale));
+      let axis = chart1
+        .append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(-13,0)")
+        .call(axisGen);
+      axis.select(".domain").remove();
+      axis
+        .selectAll(".tick text")
+        .attr("font-weight", "bold")
+        .attr("fill", "#30469c");
 
-    chart1
-      .append("path")
-      .datum(data) // 10. Binds data to the line
-      .attr("class", "line") // Assign a class for styling
-      .attr("fill", "none")
-      .attr("stroke", "#3e9798")
-      .attr("stroke-width", "10")
-      .attr("d", line); // 11. Calls the line generator
-    chart1
-      .append("path")
-      .datum(data) // 10. Binds data to the line
-      .attr("class", "line") // Assign a class for styling
-      .attr("fill", "none")
-      .attr("stroke", "#30469c")
-      .attr("stroke-width", "10")
-      .attr("d", lineB); // 11. Calls the line generator
+      var line1 = chart1
+        .append("path")
+        .datum(data)
+        .attr("class", "line")
+        .attr("fill", "none")
+        .attr("stroke", "#3e9798")
+        .attr("stroke-width", "10")
+        .attr("d", line);
 
-    chart1
-      .append("text")
-      .attr("y", -67)
-      .attr("fill", "#374faa")
-      .style("font-weight", "normal")
-      .style("font-size", "14px")
-      .attr("stroke-width", "0")
-      .text(
-        "How confident, if at all, would you say you are in the ability of the NHS to"
-      );
+      length = line1.node().getTotalLength();
+      line1
+        .attr("stroke-dasharray", length + " " + length)
+        .attr("stroke-dashoffset", length)
+        .transition()
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0)
+        .duration(700)
+        .on("end", () => setTimeout(repeat, 1000));
 
-    chart1
-      .append("text")
-      .attr("y", -47)
-      .attr("fill", "#374faa")
-      .attr("stroke-width", "0")
-      .style("font-size", "14px")
-      .text(
-        "deal with those who are ill as a result of getting the Coronavirus"
-      );
+      var line2 = chart1
+        .append("path")
+        .datum(data)
+        .attr("class", "line")
+        .attr("fill", "none")
+        .attr("stroke", "#30469c")
+        .attr("stroke-width", "10")
+        .attr("d", lineB);
 
-    chart1
-      .append("text")
-      .attr("y", -10)
-      .attr("x", 150)
-      .attr("stroke", "black")
-      .style("font-size", "16px")
-      .text("Mar 2020 - Feb 2021");
+      length = line2.node().getTotalLength();
+      line2
+        .attr("stroke-dasharray", length + " " + length)
+        .attr("stroke-dashoffset", length)
+        .transition()
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0)
+        .duration(700)
+        .on("end", () => setTimeout(repeat, 1000));
 
-    // Box 2
-    chart1
-      .append("rect")
-      .attr("x", 430)
-      .attr("y", 110)
-      .attr("width", 15)
-      .attr("height", 50)
-      .attr("fill", "#374faa");
+      chart1
+        .append("text")
+        .attr("y", -67)
+        .attr("fill", "#374faa")
+        .style("font-weight", "normal")
+        .style("font-size", "14px")
+        .attr("stroke-width", "0")
+        .text(
+          "How confident, if at all, would you say you are in the ability of the NHS to"
+        );
 
-    // Box 1
-    chart1
-      .append("rect")
-      .attr("x", 430)
-      .attr("y", 10)
-      .attr("width", 15)
-      .attr("height", 50)
-      .attr("fill", "#3e9798");
-  });
+      chart1
+        .append("text")
+        .attr("y", -47)
+        .attr("fill", "#374faa")
+        .attr("stroke-width", "0")
+        .style("font-size", "14px")
+        .text(
+          "deal with those who are ill as a result of getting the Coronavirus"
+        );
+
+      chart1
+        .append("text")
+        .attr("y", -10)
+        .attr("x", 100)
+        .attr("stroke", "black")
+        .style("font-size", "16px")
+        .text(function (d) {
+          if (index > 0) {
+            return "Mar 2020 - Feb 2021 (Click here for 2022)";
+          } else {
+            return "Mar 2021 - Feb 2022 (Click here for 2021)";
+          }
+        })
+        .on("click", function (d, i) {
+          update(index * -1);
+        });
+
+      // Box 2
+      chart1
+        .append("rect")
+        .attr("x", 430)
+        .attr("y", 110)
+        .attr("width", 15)
+        .attr("height", 50)
+        .attr("fill", "#374faa");
+
+      // Box 2
+      chart1
+        .append("text")
+        .attr("x", 450)
+        .attr("y", 140)
+        .attr("width", 15)
+        .attr("height", 50)
+        .attr("font-weight", "bold")
+        .attr("fill", "#374faa")
+        .text(function () {
+          if (index > 0) {
+            return data[11].valueB0 + " %";
+          } else {
+            return data[11].valueB1 + " %";
+          }
+        });
+
+      // Box 1
+      chart1
+        .append("rect")
+        .attr("x", 430)
+        .attr("y", 10)
+        .attr("width", 15)
+        .attr("height", 50)
+        .attr("fill", "#3e9798");
+
+      // Box 2
+      chart1
+        .append("text")
+        .attr("x", 450)
+        .attr("y", 40)
+        .attr("width", 15)
+        .attr("height", 50)
+        .attr("font-weight", "bold")
+        .attr("fill", "#3e9798")
+        .text(function () {
+          if (index > 0) {
+            return data[11].valueA0 + " %";
+          } else {
+            return data[11].valueA1 + " %";
+          }
+        });
+    });
+  }
+
+  // INIT THE CHART
+  update(1);
 }
