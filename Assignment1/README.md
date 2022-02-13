@@ -1,4 +1,4 @@
-# Assignment 1
+# Matt Peachey | Vis Assignment
 
 This .zip file contains everything required to run my CSCI 6406 assignment submission. This README file provides all relevant information about this assignment, including system requirements, how to run the program, interactivty components, and citations for references used in this assignment.
 
@@ -31,6 +31,8 @@ I have programmed several interactive components to fulfil the final 20% compone
 
 I used several references to the d3 documentation while learning about how it worked for this assignment. While the work included as submission for this assignment is my own, some code aspects of it were inspired directly from this documentation. A set of links to specific pages of documentation I refered to is included below, along with the code snippets which utilized that information.
 
+- https://github.com/d3/d3/wiki | The official D3 documentation was used a fair amount for the completion of this assignment.
+
 - https://www.d3-graph-gallery.com/graph/line_basic.html | Used to learn about drawing basic graphs, the code in chart 1 is adapted from the example code provided, but the final submission reflects my own work.
 
 - https://www.tutorialsteacher.com/d3js/select-dom-element-using-d3js | used to learn how to select and delete svg elements by ID, found it in the notes later.
@@ -42,3 +44,5 @@ I used several references to the d3 documentation while learning about how it wo
 - https://iconmonstr.com/arrow-1-svg/ | Arrow SVG
 
 - https://uxwing.com/human-icon/ | Human SVG
+
+- https://observablehq.com/@d3/gallery | These examples from the D3 official website were used as learning materials to understand how different aspects of d3 worked.
