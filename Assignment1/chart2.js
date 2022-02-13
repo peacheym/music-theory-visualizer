@@ -80,14 +80,14 @@ function generateChart2() {
   // Add external SVGs for human outlines.
   chart2
     .append("image")
-    .attr("xlink:href", "./human.svg")
+    .attr("xlink:href", "./images/human.svg")
     .attr("width", 80)
     .attr("height", 80)
     .attr("y", 50);
 
   chart2
     .append("image")
-    .attr("xlink:href", "./arrow.svg")
+    .attr("xlink:href", "./images/arrow.svg")
     .attr("width", 40)
     .attr("height", 40)
     .attr("x", 110)
@@ -95,7 +95,7 @@ function generateChart2() {
 
   chart2
     .append("image")
-    .attr("xlink:href", "./human.svg")
+    .attr("xlink:href", "./images/human.svg")
     .attr("width", 80)
     .attr("height", 80)
     .attr("y", 50)
@@ -103,7 +103,7 @@ function generateChart2() {
 
     chart2
     .append("image")
-    .attr("xlink:href", "./arrow.svg")
+    .attr("xlink:href", "./images/arrow.svg")
     .attr("width", 40)
     .attr("height", 40)
     .attr("x", 290)
@@ -111,7 +111,7 @@ function generateChart2() {
 
   chart2
     .append("image")
-    .attr("xlink:href", "./human.svg")
+    .attr("xlink:href", "./images/human.svg")
     .attr("width", 110)
     .attr("height", 110)
     .attr("y", 20)

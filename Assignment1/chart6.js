@@ -151,11 +151,11 @@ function generateChart6() {
       d3.select("#id-" + d.Label).attr("visibility", "hidden");
     }
   });
-  
+
   // Add clock SVG
   text6
     .append("image")
-    .attr("xlink:href", "./clock.svg")
+    .attr("xlink:href", "./images/clock.svg")
     .attr("width", 140)
     .attr("height", 140)
     .attr("x", 225)
