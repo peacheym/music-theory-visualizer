@@ -23,7 +23,7 @@ I have programmed several interactive components to fulfil the final 20% compone
 
 - Chart 1: When a user clicks on the date, they are able to toggle between data for 2021 and 2022.
 - Chart 3
-- Chart 4: When the user hovers over each of the paths, it will animate the progression of the path.
+- Chart 4: When the user clicks on any of the grey vertical lines, a tool tip is toggled to explain what that line means.
 - Chart 5
 - Chart 6
 

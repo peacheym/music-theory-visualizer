@@ -4,8 +4,7 @@ var svgContainer = d3
   .select("body")
   .append("svg")
   .attr("width", window.innerWidth)
-  .attr("height", window.innerHeight * 1.5)
-  .style("border", "1px salmon solid");
+  .attr("height", window.innerHeight * 1.5);
 
 function generateHeader() {
   var headerText = svgContainer

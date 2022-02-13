@@ -92,6 +92,7 @@ function generateChart3() {
     .attr("fill", function (d) {
       return color(d.data.key);
     });
+
   // Add text labels to donut chart
   chart3
     .selectAll("mySlices")
@@ -155,4 +156,111 @@ function generateChart3() {
     .style("text-anchor", "middle")
     .attr("fill", "#214d4e")
     .text("a vaccine");
+
+  chart3
+    .append("text")
+    .attr("x", 430)
+    .attr("y", 60)
+    .style("font-size", "16px")
+    .attr("font-weight", "bold")
+    .style("text-anchor", "middle")
+    .attr("fill", "#214d4e")
+    .text("52% 'strongly agreed'");
+
+  chart3
+    .append("text")
+    .attr("x", 430)
+    .attr("y", 80)
+    .style("font-size", "16px")
+    .attr("font-weight", "bold")
+    .style("text-anchor", "middle")
+    .attr("fill", "#214d4e")
+    .text("in Aug 2020");
+
+  chart3
+    .append("text")
+    .attr("x", 430)
+    .attr("y", 120)
+    .style("font-size", "16px")
+    .style("text-anchor", "middle")
+    .attr("font-weight", "bold")
+    .attr("fill", "#214d4e")
+    .text("48% 'strongly agreed'");
+
+  chart3
+    .append("text")
+    .attr("x", 430)
+    .attr("y", 140)
+    .style("font-size", "16px")
+    .attr("font-weight", "bold")
+    .style("text-anchor", "middle")
+    .attr("fill", "#214d4e")
+    .text("in Dec 2020");
+
+  // Add Legend for Donut Chart here
+  // .range(["#002454", "#2f459b", "#317372", "#214d4e"]);
+
+  chart3
+    .append("text")
+    .attr("x", 400)
+    .attr("y", 200)
+    .style("font-size", "12px")
+    .attr("fill", "#214d4e")
+    .text("Strongly Agree");
+
+  chart3
+    .append("rect")
+    .attr("x", 385)
+    .attr("y", 190)
+    .attr("width", 10)
+    .attr("height", 10)
+    .attr("fill", "#214d4e");
+
+  chart3
+    .append("text")
+    .attr("x", 400)
+    .attr("y", 220)
+    .style("font-size", "12px")
+    .attr("fill", "#317372")
+    .text("Somewhat Agree");
+
+  chart3
+    .append("rect")
+    .attr("x", 385)
+    .attr("y", 210)
+    .attr("width", 10)
+    .attr("height", 10)
+    .attr("fill", "#317372");
+
+  chart3
+    .append("text")
+    .attr("x", 400)
+    .attr("y", 240)
+    .style("font-size", "12px")
+    .attr("fill", "#2f459b")
+    .text("Somewhat disagree");
+
+  chart3
+    .append("rect")
+    .attr("x", 385)
+    .attr("y", 230)
+    .attr("width", 10)
+    .attr("height", 10)
+    .attr("fill", "#2f459b");
+
+  chart3
+    .append("text")
+    .attr("x", 400)
+    .attr("y", 260)
+    .style("font-size", "12px")
+    .attr("fill", "#002454")
+    .text("Strongly disagree");
+
+  chart3
+    .append("rect")
+    .attr("x", 385)
+    .attr("y", 250)
+    .attr("width", 10)
+    .attr("height", 10)
+    .attr("fill", "#002454");
 }

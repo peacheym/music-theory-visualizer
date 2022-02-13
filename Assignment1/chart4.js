@@ -1,4 +1,5 @@
 function generateChart4() {
+  // Add Bold white text to section
   var text4 = svgContainer
     .append("svg")
     .attr("width", 220)
@@ -75,7 +76,7 @@ function generateChart4() {
         return yScale(d.valueB);
       });
 
-    var chart1 = svgContainer
+    var chart4 = svgContainer
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -83,12 +84,6 @@ function generateChart4() {
       .attr("y", 670)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    // chart1
-    //   .append("g")
-    //   .attr("class", "x axis")
-    //   .attr("transform", "translate(0," + height + ")")
-    //   .call(d3.axisBottom(xScale));
 
     let labels = [
       "Feb 7-9",
@@ -103,7 +98,7 @@ function generateChart4() {
     axisGen.tickFormat((d, i) => labels[i]);
     axisGen.ticks(5);
     axisGen.tickSize(0);
-    let axis = chart1
+    let axis = chart4
       .append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
@@ -116,35 +111,167 @@ function generateChart4() {
       .attr("font-size", 11)
       .attr("fill", "#30469c");
 
-    // chart1.append("g").attr("class", "y axis").call(d3.axisLeft(yScale));
+    // Add Dashed Line sections & Tooltips
+    var vis1 = true;
+    var tooltip1 = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("visibility", "hidden")
+      .style("top", "850px")
+      .style("left", "1140px")
+      .style("font-size", "11px")
+      .style("font-weight", "bold")
+      .html("UK First<br/>Lockdown Announced<br/>(March 23rd)");
+    chart4
+      .append("line")
+      .style("stroke", "black")
+      .style("stroke-width", 3)
+      .attr("stroke-dasharray", "3")
+      .attr("opacity", 0.5)
+      .attr("x1", 30)
+      .attr("y1", -50)
+      .attr("x2", 30)
+      .attr("y2", 140)
+      .on("click", function () {
+        return tooltip1.style("visibility", () => {
+          if (vis1) {
+            vis1 = !vis1;
+            return "visible";
+          } else {
+            vis1 = !vis1;
+            return "hidden";
+          }
+        });
+      });
 
-    chart1
+    // Line 2 & Tooltip
+    var vis2 = false;
+    var tooltip2 = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("visibility", "hidden")
+      .style("top", "770px")
+      .style("left", "1210px")
+      .style("font-size", "11px")
+      .style("font-weight", "bold")
+      .html("3 Step Lockdown <br/> easing plan <br/> Announced (May 10th)");
+    chart4
+      .append("line")
+      .style("stroke", "black")
+      .style("stroke-width", 3)
+      .attr("stroke-dasharray", "3")
+      .attr("opacity", 0.5)
+      .attr("x1", 100)
+      .attr("y1", -50)
+      .attr("x2", 100)
+      .attr("y2", 140)
+      .on("click", function () {
+        return tooltip2.style("visibility", () => {
+          if (vis2) {
+            vis2 = !vis2;
+            return "visible";
+          } else {
+            vis2 = !vis2;
+            return "hidden";
+          }
+        });
+      });
+
+    // Line 3 & Tooltip
+    var vis3 = false;
+    var tooltip3 = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("visibility", "hidden")
+      .style("top", "700px")
+      .style("left", "1410px")
+      .style("font-size", "11px")
+      .style("font-weight", "bold")
+      .html("3-tier system<br/>introduced<br/>(October 12th)");
+    chart4
+      .append("line")
+      .style("stroke", "black")
+      .style("stroke-width", 3)
+      .attr("stroke-dasharray", "3")
+      .attr("opacity", 0.5)
+      .attr("x1", 300)
+      .attr("y1", -50)
+      .attr("x2", 300)
+      .attr("y2", 140)
+      .on("click", function () {
+        return tooltip3.style("visibility", () => {
+          if (vis3) {
+            vis3 = !vis3;
+            return "visible";
+          } else {
+            vis3 = !vis3;
+            return "hidden";
+          }
+        });
+      });
+
+    // Line 4 & Tooltip
+    var vis4 = false;
+    var tooltip4 = d3
+      .select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("visibility", "hidden")
+      .style("top", "780px")
+      .style("left", "1490px")
+      .style("font-size", "11px")
+      .style("font-weight", "bold")
+      .html("Third Lockdown<br/>introduced<br/>(January 6th)");
+    chart4
+      .append("line")
+      .style("stroke", "black")
+      .style("stroke-width", 3)
+      .attr("stroke-dasharray", "3")
+      .attr("opacity", 0.5)
+      .attr("x1", 380)
+      .attr("y1", -50)
+      .attr("x2", 380)
+      .attr("y2", 140)
+      .on("click", function () {
+        return tooltip4.style("visibility", () => {
+          if (vis4) {
+            vis4 = !vis4;
+            return "visible";
+          } else {
+            vis4 = !vis4;
+            return "hidden";
+          }
+        });
+      });
+
+    // Add the lines to the chart
+    chart4
       .append("path")
-      .datum(data) // 10. Binds data to the line
-      .attr("class", "line") // Assign a class for styling
+      .datum(data)
+      .attr("class", "line")
       .attr("fill", "none")
       .attr("stroke", "#30469c")
       .attr("stroke-width", "3")
-      .attr("d", line)
-      .on("mouseover", handleMouseOver)
-      .on("mouseout", handleMouseOut);
+      .attr("d", line);
 
-    chart1
+    chart4
       .append("path")
-      .datum(data) // 10. Binds data to the line
-      .attr("class", "line") // Assign a class for styling
+      .datum(data)
+      .attr("class", "line")
       .attr("fill", "none")
       .attr("stroke", "#3e9798")
       .attr("stroke-width", "3")
-      .attr("d", lineB)
-      .on("mouseover", handleMouseOver)
-      .on("mouseout", handleMouseOut);
+      .attr("d", lineB);
 
-    chart1
-      .selectAll(".dot")
+    // Add the labels to the first and last elements of the graph
+    chart4
+      .selectAll()
       .data(data)
       .enter()
-      .append("text") // Uses the enter().append() method
+      .append("text")
       .attr("x", function (d) {
         return xScale(d.label) - 30;
       })
@@ -154,13 +281,14 @@ function generateChart4() {
       .attr("fill", "#30469c")
       .attr("font-weight", "bold")
       .text(function (d) {
-        if (d.label == 0 || d.label == 30) {
+        // Only add to first and last elements of graph
+        if (d.label == 0 || d.label == data.length - 1) {
           return d.valueA + " %";
         }
         return;
       });
 
-    chart1
+    chart4
       .selectAll(".dot")
       .data(data)
       .enter()
@@ -174,13 +302,13 @@ function generateChart4() {
       .attr("fill", "#3e9798")
       .attr("font-weight", "bold")
       .text(function (d) {
-        if (d.label == 0 || d.label == 30) {
+        if (d.label == 0 || d.label == data.length - 1) {
           return d.valueB + " %";
         }
         return;
       });
 
-    chart1
+    chart4
       .append("text")
       .attr("y", -67)
       .attr("fill", "#374faa")
@@ -190,7 +318,7 @@ function generateChart4() {
       .text("What level of threat do you think the coronavirus poses to ...");
 
     // Add Legend below in snippet below
-    chart1
+    chart4
       .append("rect")
       .attr("x", 50)
       .attr("y", 180)
@@ -198,7 +326,7 @@ function generateChart4() {
       .attr("height", 10)
       .attr("fill", "#374faa");
 
-    chart1
+    chart4
       .append("text")
       .attr("x", 70)
       .attr("y", 189)
@@ -206,7 +334,7 @@ function generateChart4() {
       .attr("font-size", 12)
       .text("Your Country");
 
-    chart1
+    chart4
       .append("rect")
       .attr("x", 250)
       .attr("y", 180)
@@ -214,29 +342,12 @@ function generateChart4() {
       .attr("height", 10)
       .attr("fill", "#3e9798");
 
-    chart1
+    chart4
       .append("text")
       .attr("x", 270)
       .attr("y", 189)
       .attr("fill", "#3e9798")
       .attr("font-size", 12)
       .text("You Personally");
-
-    function handleMouseOver(d) {
-      // Use D3 to select element, change color and size
-      length = d3.select(this).node().getTotalLength();
-      d3.select(this)
-        .attr("stroke-dasharray", length + " " + length)
-        .attr("stroke-dashoffset", length)
-        .transition()
-        .ease(d3.easeLinear)
-        .attr("stroke-dashoffset", 0)
-        .duration(2000)
-        .on("end", () => setTimeout(repeat, 1000));
-    }
-
-    function handleMouseOut(d, i) {
-      d3.select(this).attr("stroke-width", 3);
-    }
   });
 }

@@ -47,15 +47,25 @@ function generateChart1() {
     .attr("fill", "white")
     .text("Since June 2020");
 
+  // Assign a global variable for the chart
   var chart1 = null;
 
+  // Handle measurements for the chart
   var margin = { top: 80, right: 100, bottom: 30, left: 50 },
     width = 540 - margin.left - margin.right,
     height = 280 - margin.top - margin.bottom;
+
+  /**
+   *
+   * This function allows the line graphs to be updated when the date text is clicked.
+   *
+   *
+   */
   function update(index) {
     // Refresh the view
     d3.select("#all").remove();
 
+    // Get the data we need
     d3.csv("./chart1.csv", function (data) {
       var xScale = d3.scaleLinear().domain([0, 11]).range([0, width]);
       var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
@@ -98,12 +108,14 @@ function generateChart1() {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+      //Define Y axis labels
       let labels = ["0%", "20%", "40%", "60%", "80%", "100%"];
       let axisGen = d3.axisLeft(yScale);
       axisGen.tickFormat((d, i) => labels[i]);
       axisGen.ticks(4);
       axisGen.tickSize(0);
 
+      // Add Y axis to the chart
       let axis = chart1
         .append("g")
         .attr("class", "y axis")
@@ -113,6 +125,24 @@ function generateChart1() {
       axis
         .selectAll(".tick text")
         .attr("font-weight", "bold")
+        .attr("fill", "#30469c");
+
+      let XaxisGen = d3.axisBottom(xScale);
+      XaxisGen.tickFormat((d, i) => data[i].date); // Get labels for X axis from the CSV file
+      XaxisGen.ticks(12);
+      XaxisGen.tickSize(0);
+
+      // Add X Axis to the chart
+      let Xaxis = chart1
+        .append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(XaxisGen);
+      Xaxis.select(".domain").remove();
+
+      Xaxis.selectAll(".tick text")
+        .attr("transform", "rotate(-90)")
+        .attr("font-size", 9)
         .attr("fill", "#30469c");
 
       var line1 = chart1
@@ -131,8 +161,8 @@ function generateChart1() {
         .transition()
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0)
-        .duration(700)
-        // .on("end", () => setTimeout(repeat, 1000));
+        .duration(700);
+      // .on("end", () => setTimeout(repeat, 1000));
 
       var line2 = chart1
         .append("path")
@@ -150,8 +180,7 @@ function generateChart1() {
         .transition()
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0)
-        .duration(700)
-        // .on("end", () => setTimeout(repeat, 1000));
+        .duration(700);
 
       chart1
         .append("text")
