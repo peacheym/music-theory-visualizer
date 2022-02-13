@@ -1,5 +1,9 @@
 function generateChart4() {
-  // Add Bold white text to section
+  /**
+   *
+   * FIRST STEP IS TO ADD TEXT
+   */
+
   var text4 = svgContainer
     .append("svg")
     .attr("width", 220)
@@ -54,10 +58,12 @@ function generateChart4() {
     width = 540 - margin.left - margin.right,
     height = 280 - margin.top - margin.bottom;
 
+  // Get data from CSV file
   d3.csv("./csv-files/chart4.csv", function (data) {
     var xScale = d3.scaleLinear().domain([0, 30]).range([0, width]);
     var yScale = d3.scaleLinear().domain([0, 65]).range([height, 0]);
 
+    // Compute line 1
     var line = d3
       .line()
       .x(function (d) {
@@ -67,6 +73,7 @@ function generateChart4() {
         return yScale(d.valueA);
       });
 
+    // Compute line 2
     var lineB = d3
       .line()
       .x(function (d) {
@@ -76,6 +83,7 @@ function generateChart4() {
         return yScale(d.valueB);
       });
 
+    // Init the chart container
     var chart4 = svgContainer
       .append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -85,6 +93,7 @@ function generateChart4() {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    // Define the labels for this axis
     let labels = [
       "Feb 7-9",
       "Apr 16-19",
@@ -94,10 +103,12 @@ function generateChart4() {
       "Dec 17-20",
       "Mar 11-14",
     ];
+
+    // Create axis
     let axisGen = d3.axisBottom(xScale);
     axisGen.tickFormat((d, i) => labels[i]);
     axisGen.ticks(5);
-    axisGen.tickSize(0);
+    axisGen.tickSize(0); // No ticks, only text
     let axis = chart4
       .append("g")
       .attr("class", "x axis")
@@ -112,6 +123,7 @@ function generateChart4() {
       .attr("fill", "#30469c");
 
     // Add Dashed Line sections & Tooltips
+    // Note: This section is long and not the most efficient code I've ever written
     var vis1 = true;
     var tooltip1 = d3
       .select("body")
@@ -247,7 +259,7 @@ function generateChart4() {
         });
       });
 
-    // Add the lines to the chart
+    // Add the line 1 to the chart
     chart4
       .append("path")
       .datum(data)
@@ -257,6 +269,7 @@ function generateChart4() {
       .attr("stroke-width", "3")
       .attr("d", line);
 
+    // Add the line 2 to the chart
     chart4
       .append("path")
       .datum(data)
@@ -351,3 +364,5 @@ function generateChart4() {
       .text("You Personally");
   });
 }
+
+// END FILE

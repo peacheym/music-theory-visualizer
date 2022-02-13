@@ -1,4 +1,9 @@
 function generateChart3() {
+  /**
+   *
+   * FIRST STEP IS TO ADD TEXT
+   */
+
   var text3 = svgContainer
     .append("svg")
     .attr("width", 540)
@@ -62,10 +67,10 @@ function generateChart3() {
     .style("border", "1px black solid");
   var radius = 120;
 
-  // Create dummy data
+  // Create Donut Chart Data
   var data = { a: 8, b: 9, c: 18, d: 63 };
 
-  // set the color scale
+  // Create the color scale
   var color = d3
     .scaleOrdinal()
     .domain(data)
@@ -101,10 +106,10 @@ function generateChart3() {
     .append("text")
     .attr("fill", "#FFFFFF")
     .attr("font-weight", "bold")
-    .attr("font-size", "18")
     .text(function (d) {
       return d.data.value + "%";
     })
+    .attr("font-size", "18")
     .attr("transform", function (d) {
       translate = donutChartBuilder.centroid(d);
       return (
@@ -198,8 +203,6 @@ function generateChart3() {
     .text("in Dec 2020");
 
   // Add Legend for Donut Chart here
-  // .range(["#002454", "#2f459b", "#317372", "#214d4e"]);
-
   chart3
     .append("text")
     .attr("x", 400)
@@ -264,3 +267,5 @@ function generateChart3() {
     .attr("height", 10)
     .attr("fill", "#002454");
 }
+
+// END FILE

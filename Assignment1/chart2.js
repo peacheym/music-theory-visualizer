@@ -1,4 +1,9 @@
 function generateChart2() {
+  /**
+   *
+   * FIRST STEP IS TO ADD TEXT
+   */
+
   var text2 = svgContainer
     .append("svg")
     .attr("width", 800)
@@ -101,7 +106,7 @@ function generateChart2() {
     .attr("y", 50)
     .attr("x", 170);
 
-    chart2
+  chart2
     .append("image")
     .attr("xlink:href", "./images/arrow.svg")
     .attr("width", 40)

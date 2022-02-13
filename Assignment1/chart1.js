@@ -1,5 +1,8 @@
 function generateChart1() {
-  /* Handle Chart Section 1 */
+  /**
+   *
+   * FIRST STEP IS TO ADD TEXT
+   */
 
   var text1 = svgContainer
     .append("svg")
@@ -70,6 +73,7 @@ function generateChart1() {
       var xScale = d3.scaleLinear().domain([0, 11]).range([0, width]);
       var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 
+      // Compute the first line
       var line = d3
         .line()
         .x(function (d) {
@@ -84,6 +88,7 @@ function generateChart1() {
         })
         .curve(d3.curveMonotoneX);
 
+      // Compute the second line
       var lineB = d3
         .line()
         .x(function (d) {
@@ -98,6 +103,7 @@ function generateChart1() {
         })
         .curve(d3.curveMonotoneX);
 
+      // Init the chart container
       chart1 = svgContainer
         .append("svg")
         .attr("id", "all")
@@ -145,6 +151,7 @@ function generateChart1() {
         .attr("font-size", 9)
         .attr("fill", "#30469c");
 
+      // Plot the fist line
       var line1 = chart1
         .append("path")
         .datum(data)
@@ -162,8 +169,8 @@ function generateChart1() {
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0)
         .duration(700);
-      // .on("end", () => setTimeout(repeat, 1000));
 
+      // Plot the second line
       var line2 = chart1
         .append("path")
         .datum(data)
@@ -182,6 +189,7 @@ function generateChart1() {
         .attr("stroke-dashoffset", 0)
         .duration(700);
 
+      // Add all additional text for this chart
       chart1
         .append("text")
         .attr("y", -67)

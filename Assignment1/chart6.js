@@ -1,4 +1,9 @@
 function generateChart6() {
+  /**
+   *
+   * FIRST STEP IS TO ADD TEXT
+   */
+
   var text6 = svgContainer
     .append("svg")
     .attr("width", 800)
@@ -107,8 +112,15 @@ function generateChart6() {
     .attr("fill", "#374faa")
     .text("Never / I have no idea");
 
+  // GET data from the CSV file
   d3.csv("./csv-files/chart6.csv", function (data) {
-    var bars = chart6.selectAll(".myBars").data(data).enter().append("rect");
+    var bars = chart6
+      .selectAll("bar-chart-items")
+      .data(data)
+      .enter()
+      .append("rect");
+
+    // Compute the actual bars
     bars
       .attr("x", 150)
       .attr("y", function (d) {
@@ -126,12 +138,15 @@ function generateChart6() {
     var texts = chart6.selectAll(".myTexts").data(data).enter().append("text");
     texts
       .attr("x", function (d) {
+        // Compute X
         return 150 + d.Value * 5 + 16;
       })
       .attr("y", function (d) {
+        // Compute Y
         return 30 + d.Label * 50;
       })
       .attr("id", function (d) {
+        // Set ID based on label
         return "id-" + d.Label;
       })
       .attr("fill", "#30469c")
@@ -142,7 +157,7 @@ function generateChart6() {
         return d.Value + " %";
       });
 
-    // Define event handlers
+    // Define event handlers for mouse in and out
     function handleMouseOver(d) {
       d3.select("#id-" + d.Label).attr("visibility", "visible");
     }
@@ -161,3 +176,5 @@ function generateChart6() {
     .attr("x", 225)
     .attr("y", 120);
 }
+
+// END FILE
