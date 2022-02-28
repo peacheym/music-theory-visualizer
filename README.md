@@ -9,7 +9,13 @@ Term project for CSCI 6406 in Winter 2022
 
 ## Project Description
 
-TBD (Thinking Theory Vis)
+Music Theory Topic Visualization
+
+- Notes
+- Chords & Chord Structure
+- Keys
+- Scales
+- How these items all connect to one another.
 
 ## Literature Review
 
