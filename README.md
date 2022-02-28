@@ -17,6 +17,12 @@ Music Theory Topic Visualization
 - Scales
 - How these items all connect to one another.
 
+### Datasets Used
+
+- Chords Structure and note names | [link](https://data.world/gianca1976/chords-structure-and-note-names)
+- Chord progressions | [link](https://data.world/alexandra/chord-progressions)
+- Music features | [link](https://www.kaggle.com/insiyeah/musicfeatures/version/1?select=data_2genre.csv)
+
 ## Literature Review
 
 A list of relevant papers are here:
