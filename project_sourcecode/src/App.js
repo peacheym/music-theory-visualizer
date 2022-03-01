@@ -3,6 +3,30 @@ import { Group } from "@visx/group";
 import { Bar } from "@visx/shape";
 import { scaleLinear, scaleBand } from "@visx/scale";
 
+import { Graph, DefaultLink, DefaultNode } from "@visx/network";
+const nodes = [
+  { x: 500, y: 20 },
+  { x: 200, y: 300 },
+  { x: 300, y: 40 },
+];
+
+const dataSample = {
+  nodes,
+  links: [
+    { source: nodes[0], target: nodes[1] },
+    { source: nodes[1], target: nodes[2] },
+    { source: nodes[2], target: nodes[0], dashed: true },
+  ],
+};
+
+const MyGraph = () => (
+  <Graph
+    graph={dataSample}
+    linkComponent={DefaultLink}
+    nodeComponent={DefaultNode}
+  />
+);
+
 // We'll use some mock data from `@visx/mock-data` for this.
 const data = letterFrequency;
 
@@ -60,7 +84,15 @@ function BarGraph(props) {
 }
 
 function App() {
-  return <BarGraph />;
+  return (
+    <>
+      <BarGraph />
+      <br />
+      <svg height="1200px" width={"1200px"}>
+        <MyGraph />
+      </svg>
+    </>
+  );
 }
 
 export default App;
