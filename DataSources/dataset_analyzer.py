@@ -14,3 +14,6 @@ print(df['chord_type'].unique(), "# of unique chord types:", len(df['chord_root'
 
 
 print(df.loc[df['chord_type'] == 'maj'] )
+
+print()
+print(df.tail())
