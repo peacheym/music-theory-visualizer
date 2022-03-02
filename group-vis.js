@@ -1,45 +1,45 @@
 function formatNoteName(note) {
   // console.log("Formatting " + note)
-  if (note.includes("bb")) {
-    switch (note) {
-      case "Abb":
-        return "G";
-      case "Bbb":
-        return "A";
-      case "Cbb":
-        return "Bb";
-      case "Dbb":
-        return "C";
-      case "Ebb":
-        return "D";
-      case "Fbb":
-        return "Eb";
-      case "Gbb":
-        return "F";
-      default:
-        return "ERROR";
-    }
-  }
-  if (note.includes("##")) {
-    switch (note) {
-      case "A##":
-        return "B";
-      case "B##":
-        return "C#";
-      case "C##":
-        return "D";
-      case "D##":
-        return "E";
-      case "E##":
-        return "F#";
-      case "F##":
-        return "G";
-      case "G##":
-        return "A";
-      default:
-        return "ERROR";
-    }
-  }
+  // if (note.includes("bb")) {
+  //   switch (note) {
+  //     case "Abb":
+  //       return "G";
+  //     case "Bbb":
+  //       return "A";
+  //     case "Cbb":
+  //       return "Bb";
+  //     case "Dbb":
+  //       return "C";
+  //     case "Ebb":
+  //       return "D";
+  //     case "Fbb":
+  //       return "Eb";
+  //     case "Gbb":
+  //       return "F";
+  //     default:
+  //       return "ERROR";
+  //   }
+  // }
+  // if (note.includes("##")) {
+  //   switch (note) {
+  //     case "A##":
+  //       return "B";
+  //     case "B##":
+  //       return "C#";
+  //     case "C##":
+  //       return "D";
+  //     case "D##":
+  //       return "E";
+  //     case "E##":
+  //       return "F#";
+  //     case "F##":
+  //       return "G";
+  //     case "G##":
+  //       return "A";
+  //     default:
+  //       return note;
+  //   }
+  // }
 }
 
 d3.csv("./DataSources/chord-structure.csv", function (data) {
@@ -181,18 +181,29 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
 
   function clickNode(note) {
     associated_notes = findNotes(note);
+    associated_notes.shift(); // Removes first element
+
+    // Format Notes that need formatting
     for (i in associated_notes) {
       if (
         associated_notes[i].includes("bb") ||
         associated_notes[i].includes("##")
       ) {
-        console.log(associated_notes[i]);
         associated_notes[i] = formatNoteName(associated_notes[i]);
       }
     }
+
+    // Update Styles
     console.log(associated_notes);
     notes.style("fill", (d) => {
-      return note == d.key ? "red" : "#752bb5";
+      if (note == d.key) {
+        return "red";
+      } else if (associated_notes.includes(d.key)) {
+        console.log(note);
+        return "green";
+      } else {
+        return "#752bb5";
+      }
     });
   }
 });
