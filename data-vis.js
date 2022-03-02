@@ -85,7 +85,7 @@ var svgContainer = d3
   .select("body")
   .append("svg")
   .attr("width", 1800)
-  .attr("height", 1800);
+  .attr("height", 600);
 
 let arcHeight = 60;
 let arcWidth = 60;
