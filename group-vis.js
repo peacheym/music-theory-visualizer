@@ -1,4 +1,71 @@
+function formatNoteName(note) {
+  // console.log("Formatting " + note)
+  if (note.includes("bb")) {
+    switch (note) {
+      case "Abb":
+        return "G";
+      case "Bbb":
+        return "A";
+      case "Cbb":
+        return "Bb";
+      case "Dbb":
+        return "C";
+      case "Ebb":
+        return "D";
+      case "Fbb":
+        return "Eb";
+      case "Gbb":
+        return "F";
+      default:
+        return "ERROR";
+    }
+  }
+  if (note.includes("##")) {
+    switch (note) {
+      case "A##":
+        return "B";
+      case "B##":
+        return "C#";
+      case "C##":
+        return "D";
+      case "D##":
+        return "E";
+      case "E##":
+        return "F#";
+      case "F##":
+        return "G";
+      case "G##":
+        return "A";
+      default:
+        return "ERROR";
+    }
+  }
+}
+
 d3.csv("./DataSources/chord-structure.csv", function (data) {
+  function findNotes(root_note) {
+    let unparsed;
+    console.log("Searching for notes associated with: " + root_note);
+
+    // Find the data needed.
+    for (i in groupedData) {
+      if (groupedData[i].key == root_note) {
+        unparsed = groupedData[i];
+        break;
+      }
+    }
+
+    return [
+      ...new Set(
+        unparsed.values
+          .map((v) => {
+            return v.notes.split("$");
+          })
+          .flat()
+      ),
+    ];
+  }
+
   var groupedData = d3
     .nest()
     .key(function (d) {
@@ -19,17 +86,16 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     .attr("height", height);
 
   // Initialize the circle: all located at the center of the svg area
-  var node = svg
+  var notes = svg
     .append("g")
-    .selectAll("circle")
+    .selectAll("notes")
     .data(groupedData)
     .enter()
     .append("circle")
-    .attr("r", 25)
+    .attr("r", 30)
     .attr("cx", width / 2)
     .attr("cy", height / 2)
     .style("fill", (d) => {
-      console.log(d.key);
       return "#752bb5";
     })
     .style("fill-opacity", 0.3)
@@ -41,7 +107,10 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
         .on("start", dragstarted)
         .on("drag", dragged)
         .on("end", dragended)
-    );
+    )
+    .on("click", function (d, i) {
+      clickNode(d.key);
+    });
 
   // Features of the forces applied to the nodes:
   var simulation = d3
@@ -56,15 +125,41 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     .force("charge", d3.forceManyBody().strength(1)) // Nodes are attracted one each other of value is > 0
     .force("collide", d3.forceCollide().strength(0.1).radius(30).iterations(1)); // Force that avoids circle overlapping
 
+  notes_labels = svg
+    .selectAll("mylabels")
+    .data(groupedData)
+    .enter()
+    .append("text")
+    // .style("pointer-events", none)
+    .attr("x", function (d) {
+      return d.x ? d.x : 0;
+    })
+    .attr("y", function (d) {
+      return d.y ? d.y : 0;
+    })
+    .text(function (d) {
+      return d.key;
+    })
+    .style("text-anchor", "middle");
+
   // Apply these forces to the nodes and update their positions.
   // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
   simulation.nodes(groupedData).on("tick", function (d) {
-    node
+    notes
       .attr("cx", function (d) {
         return d.x;
       })
       .attr("cy", function (d) {
         return d.y;
+      });
+
+    notes_labels
+      .attr("x", function (d) {
+        // console.log(d.x)
+        return d.x;
+      })
+      .attr("y", function (d) {
+        return d.y + 4;
       });
   });
 
@@ -82,5 +177,22 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     if (!d3.event.active) simulation.alphaTarget(0.03);
     d.fx = null;
     d.fy = null;
+  }
+
+  function clickNode(note) {
+    associated_notes = findNotes(note);
+    for (i in associated_notes) {
+      if (
+        associated_notes[i].includes("bb") ||
+        associated_notes[i].includes("##")
+      ) {
+        console.log(associated_notes[i]);
+        associated_notes[i] = formatNoteName(associated_notes[i]);
+      }
+    }
+    console.log(associated_notes);
+    notes.style("fill", (d) => {
+      return note == d.key ? "red" : "#752bb5";
+    });
   }
 });
