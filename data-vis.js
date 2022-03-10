@@ -1,122 +1,38 @@
-function compute_fill(root, KeyTonality) {
+// One function that handles all tonality specifc information.
+function computeNoteInfo(root, KeyTonality) {
   if (KeyTonality === "MAJOR") {
     switch (root) {
       case 1:
-        return "cadetblue";
+        return { fill: "cadetblue", radius: 30, romanNum: "I" };
       case 2:
-        return "lavender";
+        return { fill: "lavender", radius: 22, romanNum: "ii" };
       case 3:
-        return "lavender";
+        return { fill: "lavender", radius: 22, romanNum: "iii" };
       case 4:
-        return "cadetblue";
+        return { fill: "cadetblue", radius: 30, romanNum: "IV" };
       case 5:
-        return "cadetblue";
+        return { fill: "cadetblue", radius: 30, romanNum: "V" };
       case 6:
-        return "lavender";
+        return { fill: "lavender", radius: 22, romanNum: "vi" };
       case 7:
-        return "salmon";
-      default:
-        return "black";
+        return { fill: "salmon", radius: 30, romanNum: "vii" };
     }
   } else if (KeyTonality === "MINOR")
     switch (root) {
       case 1:
-        return "lavender";
+        return { fill: "lavender", radius: 22, romanNum: "i" };
       case 2:
-        return "salmon";
+        return { fill: "salmon", radius: 30, romanNum: "ii" };
       case 3:
-        return "cadetblue";
+        return { fill: "cadetblue", radius: 30, romanNum: "III" };
       case 4:
-        return "lavender";
+        return { fill: "lavender", radius: 22, romanNum: "iv" };
       case 5:
-        return "lavender";
+        return { fill: "lavender", radius: 22, romanNum: "v" };
       case 6:
-        return "cadetblue";
+        return { fill: "cadetblue", radius: 30, romanNum: "VI" };
       case 7:
-        return "cadetblue";
-      default:
-        return "black";
-    }
-}
-function compute_radius(root, KeyTonality) {
-  if (KeyTonality === "MAJOR") {
-    switch (root) {
-      case 1:
-        return 30;
-      case 2:
-        return 22;
-      case 3:
-        return 22;
-      case 4:
-        return 30;
-      case 5:
-        return 30;
-      case 6:
-        return 22;
-      case 7:
-        return 30;
-      default:
-        return "black";
-    }
-  } else if (KeyTonality === "MINOR")
-    switch (root) {
-      case 1:
-        return 22;
-      case 2:
-        return 30;
-      case 3:
-        return 30;
-      case 4:
-        return 22;
-      case 5:
-        return 22;
-      case 6:
-        return 30;
-      case 7:
-        return 30;
-      default:
-        return "black";
-    }
-}
-
-function convertToRomanNeumeral(note, KeyTonality) {
-  if (KeyTonality === "MAJOR") {
-    switch (note) {
-      case 1:
-        return "I";
-      case 2:
-        return "ii";
-      case 3:
-        return "iii";
-      case 4:
-        return "IV";
-      case 5:
-        return "V";
-      case 6:
-        return "vi";
-      case 7:
-        return "vii";
-      default:
-        return "black";
-    }
-  } else if (KeyTonality === "MINOR")
-    switch (note) {
-      case 1:
-        return "i";
-      case 2:
-        return "II";
-      case 3:
-        return "III";
-      case 4:
-        return "iv";
-      case 5:
-        return "v";
-      case 6:
-        return "VI";
-      case 7:
-        return "vii";
-      default:
-        return "black";
+        return { fill: "cadetblue", radius: 30, romanNum: "VII" };
     }
 }
 
@@ -252,10 +168,10 @@ svgContainer
   })
   .attr("cy", 300)
   .attr("r", (d) => {
-    return compute_radius(d.index, "MAJOR");
+    return computeNoteInfo(d.index, "MAJOR").radius;
   })
   .attr("fill", (d) => {
-    return compute_fill(d.index, "MAJOR");
+    return computeNoteInfo(d.index, "MAJOR").fill;
   })
   .attr("stroke", "#7F7D7D")
   .style("stroke-width", 3);
@@ -273,7 +189,7 @@ svgContainer
   // .attr("visibility", "hidden")
   .attr("font-size", "16px")
   .text(function (d) {
-    return convertToRomanNeumeral(d.index, "MAJOR");
+    return computeNoteInfo(d.index, "MAJOR").romanNum;
   })
   .style("text-anchor", "middle");
 
@@ -306,10 +222,10 @@ svgContainer
   })
   .attr("cy", 500)
   .attr("r", (d) => {
-    return compute_radius(d.index, "MINOR");
+    return computeNoteInfo(d.index, "MINOR").radius;
   })
   .attr("fill", (d) => {
-    return compute_fill(d.index, "MINOR");
+    return computeNoteInfo(d.index, "MINOR").fill;
   })
   .attr("stroke", "#7F7D7D")
   .style("stroke-width", 3);
@@ -327,7 +243,7 @@ svgContainer
   // .attr("visibility", "hidden")
   .attr("font-size", "16px")
   .text(function (d) {
-    return convertToRomanNeumeral(d.index, "MINOR");
+    return computeNoteInfo(d.index, "MINOR").romanNum;
   })
   .style("text-anchor", "middle");
 
