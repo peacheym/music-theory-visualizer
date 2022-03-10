@@ -1,5 +1,5 @@
 function formatNoteName(note) {
-  // console.log("Formatting " + note)
+  console.log("Formatting " + note);
   // if (note.includes("bb")) {
   //   switch (note) {
   //     case "Abb":
@@ -40,6 +40,16 @@ function formatNoteName(note) {
   //       return note;
   //   }
   // }
+}
+
+function generateChordsOfKey(root_note){
+  majorChords = []
+  minorChords = []
+
+  majorChords.push(root_note)
+  majorChords.push(root_note )
+
+  console.log(majorChords)
 }
 
 d3.csv("./DataSources/chord-structure.csv", function (data) {
@@ -95,11 +105,15 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     .attr("r", 30)
     .attr("cx", width / 2)
     .attr("cy", height / 2)
+    .attr("group", function (d, i) {
+      //console.log(i);
+      return i;
+    })
     .style("fill", (d) => {
       return "#752bb5";
     })
     .style("fill-opacity", 0.3)
-    .attr("stroke", "#b3a2c8")
+    .attr("stroke", "#7F7D7D")
     .style("stroke-width", 4)
     .call(
       d3
@@ -116,6 +130,26 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
   var simulation = d3
     .forceSimulation()
     .force(
+      "x",
+      d3
+        .forceX()
+        .strength((d) => {
+          //console.log(d);
+          return 0.1;
+        })
+        .x(function (d) {
+          //console.log(d);
+          return width / 2;
+        })
+    )
+    .force(
+      "y",
+      d3
+        .forceY()
+        .strength(0.1)
+        .y(height / 2)
+    )
+    .force(
       "center",
       d3
         .forceCenter()
@@ -123,7 +157,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
         .y(height / 2)
     ) // Attraction to the center of the svg area
     .force("charge", d3.forceManyBody().strength(1)) // Nodes are attracted one each other of value is > 0
-    .force("collide", d3.forceCollide().strength(0.1).radius(30).iterations(1)); // Force that avoids circle overlapping
+    .force("collide", d3.forceCollide().strength(0.5).radius(35).iterations(1)); // Force that avoids circle overlapping
 
   notes_labels = svg
     .selectAll("mylabels")
@@ -193,13 +227,15 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       }
     }
 
+    generateChordsOfKey(note)
+
     // Update Styles
-    console.log(associated_notes);
+    //console.log(associated_notes);
     notes.style("fill", (d) => {
       if (note == d.key) {
         return "red";
       } else if (associated_notes.includes(d.key)) {
-        console.log(note);
+        //console.log(note);
         return "green";
       } else {
         return "#752bb5";
