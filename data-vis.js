@@ -40,17 +40,18 @@ var links = null;
 var svgContainer = d3
   .select("body")
   .append("svg")
-  .attr("width", 1000)
+  .attr("width", 900)
   .attr("height", 800)
-  .style("background", "#fff5e8");
+  .style("background", "#fff5e8")
+  .style("border-radius", "15px");
 
 d3.csv("./DataSources/chord-progressions.csv", function (data) {
   // Initialize the button
-  var dropdownButton = d3
-    .select("body")
-    .append("select")
-    .attr("x", 10)
-    .attr("y", 10);
+
+  d3.select("body").append("br");
+  var dropdownButton = d3.select("body").append("select");
+  // var dropdownButton2 = d3.select("body").append("select");
+  // var dropdownButton3 = d3.select("body").append("select");
 
   // add the options to the button
   dropdownButton // Add a button
@@ -138,10 +139,6 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
             return "#ccd5ff";
         }
       });
-    // .append("text")
-    // .attr("x", 50)
-    // .attr("y", 50)
-    // .text("test");
   });
 });
 
@@ -175,6 +172,19 @@ svgContainer
   })
   .attr("stroke", "#7F7D7D")
   .style("stroke-width", 3);
+
+svgContainer
+  .append("text")
+  .attr("x", 800)
+  .attr("y", 310)
+  .style("font-weight", "bold")
+  .text("Major Key");
+svgContainer
+  .append("text")
+  .attr("x", 800)
+  .attr("y", 510)
+  .style("font-weight", "bold")
+  .text("Minor Key");
 
 // Add Labels to the notes, invisible by default.
 svgContainer

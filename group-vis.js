@@ -42,14 +42,14 @@ function formatNoteName(note) {
   // }
 }
 
-function generateChordsOfKey(root_note){
-  majorChords = []
-  minorChords = []
+function generateChordsOfKey(root_note) {
+  majorChords = [];
+  minorChords = [];
 
-  majorChords.push(root_note)
-  majorChords.push(root_note )
+  majorChords.push(root_note);
+  majorChords.push(root_note);
 
-  console.log(majorChords)
+  console.log(majorChords);
 }
 
 d3.csv("./DataSources/chord-structure.csv", function (data) {
@@ -84,8 +84,8 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     .entries(data);
 
   // set the dimensions and margins of the graph
-  var width = 600;
-  var height = 600;
+  var width = 700;
+  var height = 800;
 
   // append the svg object to the body of the page
   var svg = d3
@@ -93,8 +93,8 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     .append("svg")
     .style("background", "#fff5e8")
     .attr("width", width)
-    .attr("height", height);
-
+    .attr("height", height)
+    .style("border-radius", "15px");
   // Initialize the circle: all located at the center of the svg area
   var notes = svg
     .append("g")
@@ -227,7 +227,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       }
     }
 
-    generateChordsOfKey(note)
+    generateChordsOfKey(note);
 
     // Update Styles
     //console.log(associated_notes);
