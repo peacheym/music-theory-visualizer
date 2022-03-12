@@ -42,16 +42,6 @@ function formatNoteName(note) {
   // }
 }
 
-function generateChordsOfKey(root_note) {
-  majorChords = [];
-  minorChords = [];
-
-  majorChords.push(root_note);
-  majorChords.push(root_note);
-
-  console.log(majorChords);
-}
-
 d3.csv("./DataSources/chord-structure.csv", function (data) {
   function findNotes(root_note) {
     let unparsed;
@@ -84,7 +74,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     .entries(data);
 
   // set the dimensions and margins of the graph
-  var width = 700;
+  var width = 650;
   var height = 800;
 
   // append the svg object to the body of the page
@@ -227,7 +217,52 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       }
     }
 
-    generateChordsOfKey(note);
+    var labels = generateChordsOfKey(note);
+
+    // Update major chord labels
+    if (majorChordLables) majorChordLables.remove();
+
+    majorChordLables = svgContainer
+      .selectAll("major_chord_labels")
+      .data(labels)
+      .enter()
+      .append("text")
+      .attr("x", function (d, i) {
+        return 100 * (i + 1);
+      })
+      .attr("y", 305)
+      // .attr("visibility", "hidden")
+      .attr("font-size", "16px")
+      .text(function (d) {
+        return d.major;
+      })
+      .style("text-anchor", "middle");
+
+    // Update minor chord labels
+    if (minorChordLables) minorChordLables.remove();
+
+    minorChordLables = svgContainer
+      .selectAll("major_chord_labels")
+      .data(labels)
+      .enter()
+      .append("text")
+      .attr("x", function (d, i) {
+        return 100 * (i + 1);
+      })
+      .attr("y", 505)
+      // .attr("visibility", "hidden")
+      .attr("font-size", "16px")
+      .text(function (d) {
+        return d.minor;
+      })
+      .style("text-anchor", "middle");
+
+    // text(function (d) {
+    //   console.log(d);
+    //   return d.major;
+    // })
+    // .attr()
+    // .style("text-anchor", "middle");
 
     // Update Styles
     //console.log(associated_notes);

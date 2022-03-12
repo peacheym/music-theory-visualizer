@@ -1,46 +1,21 @@
-// One function that handles all tonality specifc information.
-function computeNoteInfo(root, KeyTonality) {
-  if (KeyTonality === "MAJOR") {
-    switch (root) {
-      case 1:
-        return { fill: "cadetblue", radius: 30, romanNum: "I" };
-      case 2:
-        return { fill: "lavender", radius: 22, romanNum: "ii" };
-      case 3:
-        return { fill: "lavender", radius: 22, romanNum: "iii" };
-      case 4:
-        return { fill: "cadetblue", radius: 30, romanNum: "IV" };
-      case 5:
-        return { fill: "cadetblue", radius: 30, romanNum: "V" };
-      case 6:
-        return { fill: "lavender", radius: 22, romanNum: "vi" };
-      case 7:
-        return { fill: "salmon", radius: 30, romanNum: "vii" };
-    }
-  } else if (KeyTonality === "MINOR")
-    switch (root) {
-      case 1:
-        return { fill: "lavender", radius: 22, romanNum: "i" };
-      case 2:
-        return { fill: "salmon", radius: 30, romanNum: "ii" };
-      case 3:
-        return { fill: "cadetblue", radius: 30, romanNum: "III" };
-      case 4:
-        return { fill: "lavender", radius: 22, romanNum: "iv" };
-      case 5:
-        return { fill: "lavender", radius: 22, romanNum: "v" };
-      case 6:
-        return { fill: "cadetblue", radius: 30, romanNum: "VI" };
-      case 7:
-        return { fill: "cadetblue", radius: 30, romanNum: "VII" };
-    }
-}
+
+// var dropdownButtonChordTypes = d3.select("#btns").append("select");
+
+// dropdownButtonChordTypes // Add a button
+//   .append("option")
+//   .text(function (d) {
+//     return "test";
+//   }) // text showed in the menu
+//   .attr("value", function (d) {
+//     return "test";
+//   }); // corresponding value returned by the button
+
 
 var links = null;
 var svgContainer = d3
   .select("body")
   .append("svg")
-  .attr("width", 900)
+  .attr("width", 950)
   .attr("height", 800)
   .style("background", "#fff5e8")
   .style("border-radius", "15px");
@@ -114,7 +89,7 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
           "A", // This means we're gonna build an elliptical arc
           (start - end) / 2,
           ",", // Next 2 lines are the coordinates of the inflexion point. Height of this point is proportional with start - end distance
-          65 * (4 - i),
+          55 * (4 - i),
           0,
           0,
           ",",
@@ -146,13 +121,13 @@ let arcHeight = 60;
 let arcWidth = 60;
 
 const root_notes = [
-  { index: 1, root: "C", root_minor: "C" },
-  { index: 2, root: "D", root_minor: "D" },
-  { index: 3, root: "E", root_minor: "Eb" },
-  { index: 4, root: "F", root_minor: "F" },
-  { index: 5, root: "G", root_minor: "G" },
-  { index: 6, root: "A", root_minor: "Ab" },
-  { index: 7, root: "B", root_minor: "Bb" },
+  { index: 1, root: "C1", root_minor: "C" },
+  { index: 2, root: "D1", root_minor: "D" },
+  { index: 3, root: "E1", root_minor: "Eb" },
+  { index: 4, root: "F1", root_minor: "F" },
+  { index: 5, root: "1G", root_minor: "G" },
+  { index: 6, root: "A1", root_minor: "Ab" },
+  { index: 7, root: "B1", root_minor: "Bb" },
 ];
 
 svgContainer
@@ -196,27 +171,9 @@ svgContainer
     return 100 * d.index;
   })
   .attr("y", 355)
-  // .attr("visibility", "hidden")
   .attr("font-size", "16px")
   .text(function (d) {
     return computeNoteInfo(d.index, "MAJOR").romanNum;
-  })
-  .style("text-anchor", "middle");
-
-// Add Chord Labels.
-svgContainer
-  .selectAll("major_root_notes")
-  .data(root_notes)
-  .enter()
-  .append("text")
-  .attr("x", function (d) {
-    return 100 * d.index;
-  })
-  .attr("y", 305)
-  .attr("visibility", "hidden")
-  .attr("font-size", "16px")
-  .text(function (d) {
-    return d.root;
   })
   .style("text-anchor", "middle");
 
@@ -240,7 +197,7 @@ svgContainer
   .attr("stroke", "#7F7D7D")
   .style("stroke-width", 3);
 
-// Add Labels to the notes, invisible by default.
+// Add Labels to the notes (number in Key)
 svgContainer
   .selectAll("minor_root_notes")
   .data(root_notes)
@@ -250,52 +207,8 @@ svgContainer
     return 100 * d.index;
   })
   .attr("y", 555)
-  // .attr("visibility", "hidden")
   .attr("font-size", "16px")
   .text(function (d) {
     return computeNoteInfo(d.index, "MINOR").romanNum;
   })
   .style("text-anchor", "middle");
-
-// Add Chord Labels.
-svgContainer
-  .selectAll("minor_root_notes")
-  .data(root_notes)
-  .enter()
-  .append("text")
-  .attr("x", function (d) {
-    return 100 * d.index;
-  })
-  .attr("y", 505)
-  .attr("visibility", "hidden")
-  .attr("font-size", "16px")
-  .text(function (d) {
-    return d.root_minor;
-  })
-  .style("text-anchor", "middle");
-
-// Add the path using this helper function
-// svgContainer
-//   .append("circle")
-//   .attr("cx", 100)
-//   .attr("cy", 100)
-//   .attr("r", 50)
-//   .attr("fill", compute_fill(7, "MAJOR"));
-
-// var major_key = svgContainer.select()
-
-// totalPoints = 8;
-
-// for (var i = 1; i <= totalPoints; i++) {
-//   drawPoint(100, i, totalPoints);
-// }
-
-// function drawPoint(r, currentPoint, totalPoints) {
-//   var theta = (Math.PI * 2) / totalPoints;
-//   var angle = theta * currentPoint;
-
-//   electron.pivot.x = r * Math.cos(angle);
-//   electron.pivot.y = r * Math.sin(angle);
-
-//   return electron;
-// }
