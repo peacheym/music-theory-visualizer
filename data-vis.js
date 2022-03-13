@@ -1,4 +1,3 @@
-
 // var dropdownButtonChordTypes = d3.select("#btns").append("select");
 
 // dropdownButtonChordTypes // Add a button
@@ -10,7 +9,6 @@
 //     return "test";
 //   }); // corresponding value returned by the button
 
-
 var links = null;
 var svgContainer = d3
   .select("body")
@@ -21,12 +19,8 @@ var svgContainer = d3
   .style("border-radius", "15px");
 
 d3.csv("./DataSources/chord-progressions.csv", function (data) {
-  // Initialize the button
-
   d3.select("body").append("br");
   var dropdownButton = d3.select("body").append("select");
-  // var dropdownButton2 = d3.select("body").append("select");
-  // var dropdownButton3 = d3.select("body").append("select");
 
   // add the options to the button
   dropdownButton // Add a button
@@ -85,7 +79,7 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
         return [
           "M",
           start,
-          270, // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
+          268, // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
           "A", // This means we're gonna build an elliptical arc
           (start - end) / 2,
           ",", // Next 2 lines are the coordinates of the inflexion point. Height of this point is proportional with start - end distance
@@ -96,7 +90,7 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
           start < end ? 1 : 0,
           end,
           ",",
-          270,
+          268,
         ] // We always want the arc on top. So if end is before start, putting 0 here turn the arc upside down.
           .join(" ");
       })
@@ -105,13 +99,13 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
       .style("stroke", (d, i) => {
         switch (i) {
           case 0:
-            return "#1b264f";
+            return "#191923";
           case 1:
-            return "#274690";
+            return "#bf1363";
           case 2:
-            return "#576ca8";
+            return "#09bc8a";
           case 3:
-            return "#ccd5ff";
+            return "#23c9ff";
         }
       });
   });
