@@ -52,7 +52,6 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     .attr("cx", width / 2)
     .attr("cy", height / 2)
     .attr("group", function (d, i) {
-      //console.log(i);
       return i;
     })
     .style("fill", (d) => {
@@ -80,28 +79,19 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       d3
         .forceX()
         .strength((d) => {
-          //console.log(d);
-          return 0.1;
+          return 1;
         })
         .x(function (d) {
-          //console.log(d);
-          return width / 2;
+          return getGroup(d.key);
         })
     )
     .force(
       "y",
       d3
         .forceY()
-        .strength(0.1)
+        .strength(0.5)
         .y(height / 2)
     )
-    .force(
-      "center",
-      d3
-        .forceCenter()
-        .x(width / 2)
-        .y(height / 2)
-    ) // Attraction to the center of the svg area
     .force("charge", d3.forceManyBody().strength(1)) // Nodes are attracted one each other of value is > 0
     .force("collide", d3.forceCollide().strength(0.5).radius(35).iterations(1)); // Force that avoids circle overlapping
 
@@ -135,7 +125,6 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
 
     notes_labels
       .attr("x", function (d) {
-        // console.log(d.x)
         return d.x;
       })
       .attr("y", function (d) {
@@ -159,10 +148,12 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     d.fy = null;
   }
 
+  /** HERE IS THE PSEUDO GLOBAL */
+  var associated_notes = null;
+
   function clickNode(note) {
     associated_notes = findNotes(note);
-    console.log(associated_notes);
-    associated_notes.shift(); // Removes first element
+    // associated_notes.shift(); // Removes first element (IS THIS NECESSARY?!?!?!)
 
     // Format Notes that need formatting
     for (i in associated_notes) {
@@ -208,32 +199,45 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       .attr("x", function (d, i) {
         return 100 * (i + 1);
       })
-      .attr("y", 505)
-      // .attr("visibility", "hidden")
+      .attr("y", 655)
       .attr("font-size", "16px")
       .text(function (d) {
         return d.minor;
       })
       .style("text-anchor", "middle");
 
-    // text(function (d) {
-    //   console.log(d);
-    //   return d.major;
-    // })
-    // .attr()
-    // .style("text-anchor", "middle");
-
-    // Update Styles
-    //console.log(associated_notes);
+    /* Style each of the nodes based on whether or not they are associated with the current key. */
     notes.style("fill", (d) => {
       if (note == d.key) {
         return "red";
       } else if (associated_notes.includes(d.key)) {
-        //console.log(note);
         return "green";
       } else {
         return "#752bb5";
       }
     });
+
+    notes.attr("r", (d) => {
+      if (note == d.key || associated_notes.includes(d.key)) {
+        return 30;
+      } else {
+        return 20;
+      }
+    });
+
+    /** RESTART THE SIMULATION -- FORCE THE NODES TO UPDATE */
+    simulation.force("x").initialize(groupedData);
+  }
+
+  function getGroup(note) {
+    if (associated_notes) {
+      if (associated_notes.includes(note)) {
+        return 2 * (width / 4) - 100;
+      } else {
+        return 3 * (width / 4);
+      }
+    } else {
+      return 2 * (width / 4);
+    }
   }
 });

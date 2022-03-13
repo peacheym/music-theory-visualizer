@@ -10,11 +10,12 @@
 //   }); // corresponding value returned by the button
 
 var links = null;
+var linksMinor = null;
 var svgContainer = d3
   .select("body")
   .append("svg")
   .attr("width", 950)
-  .attr("height", 800)
+  .attr("height", 850)
   .style("background", "#fff5e8")
   .style("border-radius", "15px");
 
@@ -108,6 +109,51 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
             return "#23c9ff";
         }
       });
+
+    // Remove existing arcs
+    if (linksMinor) linksMinor.remove();
+
+    // Generate new ones
+    linksMinor = svgContainer
+      .selectAll("mylinks")
+      .data(newLinks)
+      .enter()
+      .append("path")
+      .attr("d", function (d, i) {
+        start = d.src * 100; // X position of start node on the X axis
+        end = d.dest * 100; // X position of end node
+        return [
+          "M",
+          start,
+          638, // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
+          "A", // This means we're gonna build an elliptical arc
+          (start - end) / 2,
+          ",", // Next 2 lines are the coordinates of the inflexion point. Height of this point is proportional with start - end distance
+          55 * (4 - i),
+          0,
+          0,
+          ",",
+          start < end ? 1 : 0,
+          end,
+          ",",
+          638,
+        ] // We always want the arc on top. So if end is before start, putting 0 here turn the arc upside down.
+          .join(" ");
+      })
+      .style("fill", "none")
+      .attr("stroke-width", 3)
+      .style("stroke", (d, i) => {
+        switch (i) {
+          case 0:
+            return "#191923";
+          case 1:
+            return "#bf1363";
+          case 2:
+            return "#09bc8a";
+          case 3:
+            return "#23c9ff";
+        }
+      });
   });
 });
 
@@ -115,13 +161,13 @@ let arcHeight = 60;
 let arcWidth = 60;
 
 const root_notes = [
-  { index: 1, root: "C1", root_minor: "C" },
-  { index: 2, root: "D1", root_minor: "D" },
-  { index: 3, root: "E1", root_minor: "Eb" },
-  { index: 4, root: "F1", root_minor: "F" },
-  { index: 5, root: "1G", root_minor: "G" },
-  { index: 6, root: "A1", root_minor: "Ab" },
-  { index: 7, root: "B1", root_minor: "Bb" },
+  { index: 1, root: "C", root_minor: "C" },
+  { index: 2, root: "D", root_minor: "D" },
+  { index: 3, root: "E", root_minor: "Eb" },
+  { index: 4, root: "F", root_minor: "F" },
+  { index: 5, root: "G", root_minor: "G" },
+  { index: 6, root: "A", root_minor: "Ab" },
+  { index: 7, root: "B", root_minor: "Bb" },
 ];
 
 svgContainer
@@ -151,7 +197,7 @@ svgContainer
 svgContainer
   .append("text")
   .attr("x", 800)
-  .attr("y", 510)
+  .attr("y", 660)
   .style("font-weight", "bold")
   .text("Minor Key");
 
@@ -171,7 +217,7 @@ svgContainer
   })
   .style("text-anchor", "middle");
 
-// DO MINOR NEXT
+/* --- MINOR NEXT --- */
 
 svgContainer
   .selectAll("minor_root_notes")
@@ -181,7 +227,7 @@ svgContainer
   .attr("cx", (d) => {
     return d.index * 100;
   })
-  .attr("cy", 500)
+  .attr("cy", 650)
   .attr("r", (d) => {
     return computeNoteInfo(d.index, "MINOR").radius;
   })
@@ -200,7 +246,7 @@ svgContainer
   .attr("x", function (d) {
     return 100 * d.index;
   })
-  .attr("y", 555)
+  .attr("y", 705)
   .attr("font-size", "16px")
   .text(function (d) {
     return computeNoteInfo(d.index, "MINOR").romanNum;
