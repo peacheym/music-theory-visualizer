@@ -265,6 +265,48 @@ function computeNoteInfo(root, KeyTonality) {
     }
 }
 
+function formatNoteName(note) {
+  console.log("Formatting " + note);
+  switch (note) {
+    case "Abb":
+      return "G";
+    case "Bbb":
+      return "A";
+    case "Cbb":
+      return "Bb";
+    case "Dbb":
+      return "C";
+    case "Ebb":
+      return "D";
+    case "Fbb":
+      return "Eb";
+    case "Gbb":
+      return "F";
+    case "Bbbb":
+      return "Ab";
+    case "Ebbb":
+      return "Db";
+    case "A##":
+      return "B";
+    case "B##":
+      return "C#";
+    case "C##":
+      return "D";
+    case "D##":
+      return "E";
+    case "E##":
+      return "F#";
+    case "F##":
+      return "G";
+    case "G##":
+      return "A";
+    case "C###":
+      return "D#";
+    case "F###":
+      return "G#";
+  }
+}
+
 // Set some JS globals for the following files to interact with. Is this bad? IDK...
 var majorChordLables = null;
 var minorChordLables = null;

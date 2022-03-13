@@ -1,47 +1,3 @@
-function formatNoteName(note) {
-  console.log("Formatting " + note);
-  // if (note.includes("bb")) {
-  //   switch (note) {
-  //     case "Abb":
-  //       return "G";
-  //     case "Bbb":
-  //       return "A";
-  //     case "Cbb":
-  //       return "Bb";
-  //     case "Dbb":
-  //       return "C";
-  //     case "Ebb":
-  //       return "D";
-  //     case "Fbb":
-  //       return "Eb";
-  //     case "Gbb":
-  //       return "F";
-  //     default:
-  //       return "ERROR";
-  //   }
-  // }
-  // if (note.includes("##")) {
-  //   switch (note) {
-  //     case "A##":
-  //       return "B";
-  //     case "B##":
-  //       return "C#";
-  //     case "C##":
-  //       return "D";
-  //     case "D##":
-  //       return "E";
-  //     case "E##":
-  //       return "F#";
-  //     case "F##":
-  //       return "G";
-  //     case "G##":
-  //       return "A";
-  //     default:
-  //       return note;
-  //   }
-  // }
-}
-
 d3.csv("./DataSources/chord-structure.csv", function (data) {
   function findNotes(root_note) {
     let unparsed;
@@ -205,6 +161,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
 
   function clickNode(note) {
     associated_notes = findNotes(note);
+    console.log(associated_notes);
     associated_notes.shift(); // Removes first element
 
     // Format Notes that need formatting
@@ -216,6 +173,8 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
         associated_notes[i] = formatNoteName(associated_notes[i]);
       }
     }
+
+    console.log([...new Set(associated_notes)]);
 
     var labels = generateChordsOfKey(note);
 
