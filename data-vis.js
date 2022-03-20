@@ -125,7 +125,7 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
         return [
           "M",
           start,
-          638, // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
+          618, // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
           "A", // This means we're gonna build an elliptical arc
           (start - end) / 2,
           ",", // Next 2 lines are the coordinates of the inflexion point. Height of this point is proportional with start - end distance
@@ -136,7 +136,7 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
           start < end ? 1 : 0,
           end,
           ",",
-          638,
+          618,
         ] // We always want the arc on top. So if end is before start, putting 0 here turn the arc upside down.
           .join(" ");
       })
