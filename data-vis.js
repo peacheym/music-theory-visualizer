@@ -16,7 +16,7 @@ var svgContainer = d3
   .append("svg")
   .attr("width", 950)
   .attr("height", 850)
-  .style("background", "#fff5e8")
+  .style("background", "#F3F5F8")
   .style("border-radius", "15px");
 
 d3.csv("./DataSources/chord-progressions.csv", function (data) {

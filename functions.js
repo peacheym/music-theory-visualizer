@@ -1,13 +1,3 @@
-// return [
-//     { major: "", minor: "" },
-//     { major: "", minor: "" },
-//     { major: "", minor: "" },
-//     { major: "", minor: "" },
-//     { major: "", minor: "" },
-//     { major: "", minor: "" },
-//     { major: "", minor: "" },
-//   ];
-
 function generateChordsOfKey(root_note) {
   switch (root_note) {
     case "C":
@@ -232,15 +222,15 @@ function computeNoteInfo(root, KeyTonality) {
   if (KeyTonality === "MAJOR") {
     switch (root) {
       case 1:
-        return { fill: "cadetblue", radius: 30, romanNum: "I" };
+        return { fill: "#93acc8", radius: 30, romanNum: "I" };
       case 2:
         return { fill: "lavender", radius: 22, romanNum: "ii" };
       case 3:
         return { fill: "lavender", radius: 22, romanNum: "iii" };
       case 4:
-        return { fill: "cadetblue", radius: 30, romanNum: "IV" };
+        return { fill: "#93acc8", radius: 30, romanNum: "IV" };
       case 5:
-        return { fill: "cadetblue", radius: 30, romanNum: "V" };
+        return { fill: "#93acc8", radius: 30, romanNum: "V" };
       case 6:
         return { fill: "lavender", radius: 22, romanNum: "vi" };
       case 7:
@@ -253,15 +243,15 @@ function computeNoteInfo(root, KeyTonality) {
       case 2:
         return { fill: "salmon", radius: 30, romanNum: "ii" };
       case 3:
-        return { fill: "cadetblue", radius: 30, romanNum: "III" };
+        return { fill: "#93acc8", radius: 30, romanNum: "III" };
       case 4:
         return { fill: "lavender", radius: 22, romanNum: "iv" };
       case 5:
         return { fill: "lavender", radius: 22, romanNum: "v" };
       case 6:
-        return { fill: "cadetblue", radius: 30, romanNum: "VI" };
+        return { fill: "#93acc8", radius: 30, romanNum: "VI" };
       case 7:
-        return { fill: "cadetblue", radius: 30, romanNum: "VII" };
+        return { fill: "#93acc8", radius: 30, romanNum: "VII" };
     }
 }
 

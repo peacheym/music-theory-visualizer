@@ -31,13 +31,13 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
 
   // set the dimensions and margins of the graph
   var width = 650;
-  var height = 800;
+  var height = 850;
 
   // append the svg object to the body of the page
   var svg = d3
     .select("body")
     .append("svg")
-    .style("background", "#fff5e8")
+    .style("background", "#F3F5F8")
     .attr("width", width)
     .attr("height", height)
     .style("border-radius", "15px");
