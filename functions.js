@@ -303,3 +303,6 @@ var minorChordLables = null;
 
 var whiteKeyCircles = null;
 var blackKeyCircles = null;
+var blackKeyCircles2 = null;
+
+var pianoLabel = null;

@@ -203,11 +203,39 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       })
       .style("text-anchor", "middle");
 
+    /** Update the highlights on the piano keyboard */
 
-      /** Update the highlights on the piano keyboard */
+    console.log(associated_notes);
 
-      console.log(associated_notes)
+    whiteKeyCircles.attr("visibility", (d) => {
+      console.log(d);
+      if (associated_notes.includes(d.substring(0, 1))) {
+        return "visible";
+      } else {
+        return "hidden";
+      }
+    });
 
+    blackKeyCircles.attr("visibility", (d) => {
+      console.log(d);
+      if (associated_notes.includes(d.substring(0, 2))) {
+        return "visible";
+      } else {
+        return "hidden";
+      }
+    });
+    blackKeyCircles2.attr("visibility", (d) => {
+      console.log(d);
+      if (associated_notes.includes(d.substring(0, 2))) {
+        return "visible";
+      } else {
+        return "hidden";
+      }
+    });
+
+    pianoLabel.text(() => {
+      return "Notes Associated with " + note + " chords.";
+    });
 
     /* Style each of the nodes based on whether or not they are associated with the current key. */
     notes.style("fill", (d) => {

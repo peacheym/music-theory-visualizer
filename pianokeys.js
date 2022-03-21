@@ -76,7 +76,7 @@ var blackkeys = pianosvg
   .attr("fill", "black");
 
 /** Build the white key labels below this line */
-pianosvg
+whiteKeyCircles = pianosvg
   .selectAll("whitekeysLabels")
   .data(whitekeysData)
   .enter()
@@ -112,7 +112,7 @@ pianosvg
   .style("text-anchor", "middle");
 
 /** Build the black key labels below this line */
-pianosvg
+blackKeyCircles = pianosvg
   .selectAll("blackkeylabels")
   .data(blackkeysData)
   .enter()
@@ -137,7 +137,7 @@ pianosvg
   .style("stroke", "white")
   .attr("visibility", "hidden");
 
-pianosvg
+blackKeyCircles2 = pianosvg
   .selectAll("blackkeylabels")
   .data(blackkeysData)
   .enter()
@@ -158,7 +158,8 @@ pianosvg
   })
   .attr("r", 15)
   .style("fill", "green")
-  .style("fill-opacity", 0.3);
+  .style("fill-opacity", 0.3)
+  // .style("visibility", "hidden");
 
 pianosvg
   .selectAll("blackkeylabels")
@@ -185,3 +186,5 @@ pianosvg
   })
   .style("text-anchor", "middle")
   .style("fill", "white");
+
+pianoLabel = pianosvg.append("text").attr("x", 1050).attr("y", 114).style("font-size", 28).text("");
