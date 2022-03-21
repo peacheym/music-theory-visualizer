@@ -300,3 +300,6 @@ function formatNoteName(note) {
 // Set some JS globals for the following files to interact with. Is this bad? IDK...
 var majorChordLables = null;
 var minorChordLables = null;
+
+var whitekeys = null;
+var blackkeys = null;

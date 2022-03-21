@@ -1,7 +1,6 @@
 d3.csv("./DataSources/chord-structure.csv", function (data) {
   function findNotes(root_note) {
     let unparsed;
-    console.log("Searching for notes associated with: " + root_note);
 
     // Find the data needed.
     for (i in groupedData) {
@@ -154,7 +153,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
   function clickNode(note) {
     associated_notes = findNotes(note);
     // associated_notes.shift(); // Removes first element (IS THIS NECESSARY?!?!?!)
-
+    console.log(whitekeys);
     // Format Notes that need formatting
     for (i in associated_notes) {
       if (
@@ -165,7 +164,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       }
     }
 
-    console.log([...new Set(associated_notes)]);
+    // console.log([...new Set(associated_notes)]);
 
     var labels = generateChordsOfKey(note);
 
