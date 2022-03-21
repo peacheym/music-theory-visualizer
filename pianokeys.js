@@ -38,7 +38,7 @@ let pianosvg = d3
 let whitekeywidth = 65;
 let blackkeywidth = 40;
 
-whitekeys = pianosvg
+var whitekeys = pianosvg
   .selectAll("whitekeys")
   .data(whitekeysData)
   .enter()
@@ -52,7 +52,7 @@ whitekeys = pianosvg
   .attr("stroke", "black")
   .attr("fill", "white");
 
-blackkeys = pianosvg
+var blackkeys = pianosvg
   .selectAll("blackkeys")
   .data(blackkeysData)
   .enter()
@@ -75,32 +75,49 @@ blackkeys = pianosvg
   .attr("stroke", "black")
   .attr("fill", "black");
 
+/** Build the white key labels below this line */
 pianosvg
   .selectAll("whitekeysLabels")
   .data(whitekeysData)
   .enter()
-  .append("text")
-  .text((d) => {
-    return d.substring(0, 1);
-  })
-  .style("text-anchor", "middle")
-  .attr("x", (d, i) => {
+  .append("circle")
+  .attr("cx", (d, i) => {
     return whitekeywidth * (i + 1) + 0.5 * whitekeywidth;
   })
-  .attr("y", whitekeywidth * 2.5);
+  .attr("cy", (d, i) => {
+    return whitekeywidth * 2.45;
+  })
+  .attr("r", 17)
+  .style("fill", "green")
+  .style("fill-opacity", 0.3)
+  .style("stroke-width", 2)
+  .style("stroke", "black")
+  .attr("visibility", "hidden");
 
 pianosvg
-  .selectAll("blackkeyLabels")
-  .data(blackkeysData)
+  .selectAll("minor_root_notes")
+  .data(whitekeysData)
   .enter()
   .append("text")
-  .text((d) => {
-    return d.substring(0, 2);
+  .attr("x", function (d, i) {
+    return whitekeywidth * (i + 1) + 0.5 * whitekeywidth;
   })
-  .style("fill", "white")
-  .style("text-anchor", "middle")
-  .attr("x", (d, i) => {
-    /** Consider refactoring the code below. */
+  .attr("y", (d, i) => {
+    return whitekeywidth * 2.5;
+  })
+  .attr("font-size", "16px")
+  .text(function (d) {
+    return d.substring(0, 1);
+  })
+  .style("text-anchor", "middle");
+
+/** Build the black key labels below this line */
+pianosvg
+  .selectAll("blackkeylabels")
+  .data(blackkeysData)
+  .enter()
+  .append("circle")
+  .attr("cx", (d, i) => {
     if (i < 2) {
       return whitekeywidth * (i + 2);
     } else if (i < 5) {
@@ -111,4 +128,60 @@ pianosvg
       return whitekeywidth * (i + 5);
     }
   })
-  .attr("y", blackkeywidth * 2.5);
+  .attr("cy", (d, i) => {
+    return blackkeywidth * 2.45;
+  })
+  .attr("r", 15)
+  .style("fill", "white")
+  .style("stroke-width", 3)
+  .style("stroke", "white")
+  .attr("visibility", "hidden");
+
+pianosvg
+  .selectAll("blackkeylabels")
+  .data(blackkeysData)
+  .enter()
+  .append("circle")
+  .attr("cx", (d, i) => {
+    if (i < 2) {
+      return whitekeywidth * (i + 2);
+    } else if (i < 5) {
+      return whitekeywidth * (i + 3);
+    } else if (i < 7) {
+      return whitekeywidth * (i + 4);
+    } else {
+      return whitekeywidth * (i + 5);
+    }
+  })
+  .attr("cy", (d, i) => {
+    return blackkeywidth * 2.45;
+  })
+  .attr("r", 15)
+  .style("fill", "green")
+  .style("fill-opacity", 0.3);
+
+pianosvg
+  .selectAll("blackkeylabels")
+  .data(blackkeysData)
+  .enter()
+  .append("text")
+  .attr("x", function (d, i) {
+    if (i < 2) {
+      return whitekeywidth * (i + 2);
+    } else if (i < 5) {
+      return whitekeywidth * (i + 3);
+    } else if (i < 7) {
+      return whitekeywidth * (i + 4);
+    } else {
+      return whitekeywidth * (i + 5);
+    }
+  })
+  .attr("y", (d, i) => {
+    return blackkeywidth * 2.55;
+  })
+  .attr("font-size", "16px")
+  .text(function (d) {
+    return d.substring(0, 2);
+  })
+  .style("text-anchor", "middle")
+  .style("fill", "white");

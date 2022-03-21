@@ -301,5 +301,5 @@ function formatNoteName(note) {
 var majorChordLables = null;
 var minorChordLables = null;
 
-var whitekeys = null;
-var blackkeys = null;
+var whiteKeyCircles = null;
+var blackKeyCircles = null;

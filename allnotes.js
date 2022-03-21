@@ -164,8 +164,6 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       }
     }
 
-    // console.log([...new Set(associated_notes)]);
-
     var labels = generateChordsOfKey(note);
 
     // Update major chord labels
@@ -204,6 +202,12 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
         return d.minor;
       })
       .style("text-anchor", "middle");
+
+
+      /** Update the highlights on the piano keyboard */
+
+      console.log(associated_notes)
+
 
     /* Style each of the nodes based on whether or not they are associated with the current key. */
     notes.style("fill", (d) => {
