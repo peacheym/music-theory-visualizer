@@ -256,7 +256,6 @@ function computeNoteInfo(root, KeyTonality) {
 }
 
 function formatNoteName(note) {
-  console.log("Formatting " + note);
   switch (note) {
     case "Abb":
       return "G";
@@ -295,6 +294,10 @@ function formatNoteName(note) {
     case "F###":
       return "G#";
   }
+}
+
+function numberToNote(number, key) {
+  
 }
 
 // Set some JS globals for the following files to interact with. Is this bad? IDK...

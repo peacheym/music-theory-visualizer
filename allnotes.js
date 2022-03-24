@@ -1,4 +1,39 @@
 d3.csv("./DataSources/chord-structure.csv", function (data) {
+  let selectedChordType = null;
+  let selectedNote = null;
+  /* Build the Select / Options here*/
+  var dropdownButton = d3.select("#typeDropdown").append("select");
+
+  let uniqueChordTypes = [...new Set(data.map((item) => item.chord_type))];
+
+  // add the options to the button
+  dropdownButton // Add a button
+    .selectAll("myOptions") // Next 4 lines add 6 options = 6 colors
+    .data(uniqueChordTypes)
+    .enter()
+    .append("option")
+    .text(function (d) {
+      return d;
+    }) // text showed in the menu
+    .attr("value", function (d) {
+      return d;
+    }); // corresponding value returned by the button
+
+  /* -- Define the onchange function for the selection operations */
+  dropdownButton.on("change", function (d) {
+    var selectedOption = d3.select(this).property("value");
+    selectedChordType = selectedOption;
+
+    pianoLabel.text(() => {
+      return (
+        "Notes Associated with " + selectedNote + selectedChordType + " chord."
+      );
+    });
+
+    // This should reset the force simulation
+    simulation.force("x").initialize(groupedData);
+  });
+
   function findNotes(root_note) {
     let unparsed;
 
@@ -34,7 +69,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
 
   // append the svg object to the body of the page
   var svg = d3
-    .select("body")
+    .select("#mainSVG")
     .append("svg")
     .style("background", "#F3F5F8")
     .attr("width", width)
@@ -81,7 +116,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
           return 1;
         })
         .x(function (d) {
-          return getGroup(d.key);
+          return getGroup(d.key, selectedChordType);
         })
     )
     .force(
@@ -151,9 +186,10 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
   var associated_notes = null;
 
   function clickNode(note) {
+    selectedNote = note;
+    selectedChordType = null;
     associated_notes = findNotes(note);
     // associated_notes.shift(); // Removes first element (IS THIS NECESSARY?!?!?!)
-    console.log(whitekeys);
     // Format Notes that need formatting
     for (i in associated_notes) {
       if (
@@ -205,10 +241,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
 
     /** Update the highlights on the piano keyboard */
 
-    console.log(associated_notes);
-
     whiteKeyCircles.attr("visibility", (d) => {
-      console.log(d);
       if (associated_notes.includes(d.substring(0, 1))) {
         return "visible";
       } else {
@@ -217,7 +250,6 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     });
 
     blackKeyCircles.attr("visibility", (d) => {
-      console.log(d);
       if (associated_notes.includes(d.substring(0, 2))) {
         return "visible";
       } else {
@@ -225,7 +257,6 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       }
     });
     blackKeyCircles2.attr("visibility", (d) => {
-      console.log(d);
       if (associated_notes.includes(d.substring(0, 2))) {
         return "visible";
       } else {
@@ -234,7 +265,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     });
 
     pianoLabel.text(() => {
-      return "Notes Associated with " + note + " chords.";
+      return "Notes Associated with all of the " + note + " chords.";
     });
 
     /* Style each of the nodes based on whether or not they are associated with the current key. */
@@ -260,14 +291,37 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     simulation.force("x").initialize(groupedData);
   }
 
-  function getGroup(note) {
-    if (associated_notes) {
-      if (associated_notes.includes(note)) {
-        return 2 * (width / 4) - 100;
+  function getGroup(note, chord_type) {
+    if (chord_type == null) {
+      if (associated_notes) {
+        if (associated_notes.includes(note)) {
+          return 2 * (width / 4) - 100;
+        } else {
+          return 3 * (width / 4);
+        }
       } else {
-        return 3 * (width / 4);
+        return 2 * (width / 4);
       }
     } else {
+      chord_notes = null;
+
+      for (i in data) {
+        if (data[i].chord_root != selectedNote) {
+          continue;
+        }
+        // console.log(data[i].chord_root);
+        if (data[i].chord_type == chord_type) {
+          if (data[i].notes.split("$").includes(note)) {
+            return 2 * (width / 4) - 100;
+          } else {
+            return 3 * (width / 4);
+          }
+          break;
+        }
+      }
+
+
+      // console.log(chord_structure)
       return 2 * (width / 4);
     }
   }

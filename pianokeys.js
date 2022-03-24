@@ -28,7 +28,7 @@ let blackkeysData = [
 ];
 
 let pianosvg = d3
-  .select("body")
+  .select("#piano")
   .append("svg")
   .attr("width", 1600)
   .attr("height", 200)

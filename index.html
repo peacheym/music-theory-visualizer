@@ -17,6 +17,16 @@
       hr{
         margin: 30px 0px;
       }
+
+      #dropdowns{
+        margin-top: 15px;
+      }
+
+      #chordDropdown, #typeDropdown{
+        display: inline;
+        margin-right: 150px;
+      }
+
     </style>
   </head>
 
@@ -27,6 +37,16 @@
   <h1>Music Theory Visualization</h1>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut nisi aliquam, sodales felis non, tincidunt libero. Duis cursus suscipit felis, quis varius est commodo non. Nunc sed aliquet neque. Donec pulvinar rhoncus placerat. Suspendisse varius sapien ornare, vulputate metus non, faucibus ante. Curabitur eros nisl, porta a tempor quis, pharetra vitae est. Aliquam non tincidunt risus. Fusce malesuada, turpis sed sodales porttitor, arcu mi lobortis lacus, maximus tristique felis massa nec dolor. Donec ipsum lorem, condimentum non feugiat vitae, venenatis a leo. Maecenas sit amet sapien ornare massa tempus fringilla at in nibh. Pellentesque id ligula lectus. Etiam eu ex at mauris commodo dapibus. Mauris fermentum nibh elit, at tempus odio pulvinar sit amet. Morbi a nunc id odio vestibulum placerat. Integer non turpis a leo vehicula facilisis at ut ligula.</p>
   <hr/> 
+  <div id="piano"></div>
+  <div id="mainSVG"></div>
+  <div id="dropdowns">
+    <div id="chordDropdown">
+      <span>Chord Progression:  </span>
+    </div>
+    <div id="typeDropdown">
+      <span>Chord Type:  </span>
+    </div>
+  </div>
   <script src="./functions.js"></script>
   <script src="./pianokeys.js"></script>
     <script src="./allnotes.js"></script>
