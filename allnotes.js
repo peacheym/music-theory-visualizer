@@ -30,6 +30,21 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       );
     });
 
+    console.log("here bitch");
+
+    for (i in data) {
+      if (data[i].chord_root != selectedNote) {
+        continue;
+      }
+      // console.log(data[i].chord_root);
+      if (data[i].chord_type == selectedOption) {
+        console.log("found");
+        associated_notes = data[i].notes.split("$");
+      }
+    }
+
+    updateKeyHighlights();
+
     // This should reset the force simulation
     simulation.force("x").initialize(groupedData);
   });
@@ -185,6 +200,37 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
   /** HERE IS THE PSEUDO GLOBAL */
   var associated_notes = null;
 
+  function updateKeyHighlights() {
+    whiteKeyCircles.attr("visibility", (d) => {
+      if (associated_notes.includes(d.substring(0, 1))) {
+        return "visible";
+      } else {
+        return "hidden";
+      }
+    });
+
+    blackKeyCircles.attr("visibility", (d) => {
+      if (
+        associated_notes.includes(d.substring(0, 2)) ||
+        associated_notes.includes(sharpToFlat(d.substring(0, 2)))
+      ) {
+        return "visible";
+      } else {
+        return "hidden";
+      }
+    });
+    blackKeyCircles2.attr("visibility", (d) => {
+      if (
+        associated_notes.includes(d.substring(0, 2)) ||
+        associated_notes.includes(sharpToFlat(d.substring(0, 2)))
+      ) {
+        return "visible";
+      } else {
+        return "hidden";
+      }
+    });
+  }
+
   function clickNode(note) {
     selectedNote = note;
     selectedChordType = null;
@@ -241,28 +287,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
 
     /** Update the highlights on the piano keyboard */
 
-    whiteKeyCircles.attr("visibility", (d) => {
-      if (associated_notes.includes(d.substring(0, 1))) {
-        return "visible";
-      } else {
-        return "hidden";
-      }
-    });
-
-    blackKeyCircles.attr("visibility", (d) => {
-      if (associated_notes.includes(d.substring(0, 2))) {
-        return "visible";
-      } else {
-        return "hidden";
-      }
-    });
-    blackKeyCircles2.attr("visibility", (d) => {
-      if (associated_notes.includes(d.substring(0, 2))) {
-        return "visible";
-      } else {
-        return "hidden";
-      }
-    });
+    updateKeyHighlights();
 
     pianoLabel.text(() => {
       return "Notes Associated with all of the " + note + " chords.";
@@ -292,36 +317,15 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
   }
 
   function getGroup(note, chord_type) {
-    if (chord_type == null) {
-      if (associated_notes) {
-        if (associated_notes.includes(note)) {
-          return 2 * (width / 4) - 100;
-        } else {
-          return 3 * (width / 4);
-        }
+    // if (chord_type == null) {
+    if (associated_notes) {
+      console.log(associated_notes);
+      if (associated_notes.includes(note)) {
+        return 2 * (width / 4) - 100;
       } else {
-        return 2 * (width / 4);
+        return 3 * (width / 4);
       }
     } else {
-      chord_notes = null;
-
-      for (i in data) {
-        if (data[i].chord_root != selectedNote) {
-          continue;
-        }
-        // console.log(data[i].chord_root);
-        if (data[i].chord_type == chord_type) {
-          if (data[i].notes.split("$").includes(note)) {
-            return 2 * (width / 4) - 100;
-          } else {
-            return 3 * (width / 4);
-          }
-          break;
-        }
-      }
-
-
-      // console.log(chord_structure)
       return 2 * (width / 4);
     }
   }

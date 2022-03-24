@@ -1,14 +1,3 @@
-// var dropdownButtonChordTypes = d3.select("#btns").append("select");
-
-// dropdownButtonChordTypes // Add a button
-//   .append("option")
-//   .text(function (d) {
-//     return "test";
-//   }) // text showed in the menu
-//   .attr("value", function (d) {
-//     return "test";
-//   }); // corresponding value returned by the button
-
 var links = null;
 var linksMinor = null;
 var svgContainer = d3
@@ -23,7 +12,6 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
   d3.select("body").append("br");
   var dropdownButton = d3.select("#chordDropdown").append("select");
 
-  
   // add the options to the button
   dropdownButton // Add a button
     .selectAll("myOptions") // Next 4 lines add 6 options = 6 colors
@@ -36,8 +24,8 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
     .attr("value", function (d) {
       return d.Progression;
     }); // corresponding value returned by the button
-  
-    /* -- Define the onchange function for the selection operations */
+
+  /* -- Define the onchange function for the selection operations */
   dropdownButton.on("change", function (d) {
     var selectedOption = d3.select(this).property("value");
     var thisProgression = null;

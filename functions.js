@@ -296,8 +296,23 @@ function formatNoteName(note) {
   }
 }
 
-function numberToNote(number, key) {
-  
+function sharpToFlat(note) {
+  switch (note) {
+    case "A#":
+      return "Bb";
+    case "B#":
+      return "C";
+    case "C#":
+      return "Db";
+    case "D#":
+      return "Eb";
+    case "E#":
+      return "F";
+    case "F#":
+      return "Gb";
+    case "G#":
+      return "Ab";
+  }
 }
 
 // Set some JS globals for the following files to interact with. Is this bad? IDK...
