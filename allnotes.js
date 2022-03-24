@@ -30,7 +30,6 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       );
     });
 
-    console.log("here bitch");
 
     for (i in data) {
       if (data[i].chord_root != selectedNote) {
@@ -43,7 +42,17 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       }
     }
 
+    /** Update the piano key highlights */
     updateKeyHighlights();
+
+    /** Update the radius of the associated notes */
+    notes.attr("r", (d) => {
+      if (associated_notes.includes(d.key)) {
+        return 30;
+      } else {
+        return 20;
+      }
+    });
 
     // This should reset the force simulation
     simulation.force("x").initialize(groupedData);
