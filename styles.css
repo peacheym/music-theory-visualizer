@@ -1,0 +1,23 @@
+body {
+  background-color: #fffdfd;
+}
+h1 {
+  background-color: #fffdfd;
+}
+hr {
+  margin: 30px 0px;
+}
+
+#dropdowns {
+  margin-top: 15px;
+}
+
+#chordDropdown,
+#typeDropdown {
+  display: inline;
+  margin-right: 150px;
+}
+
+#information {
+  font-family: "Playfair Display", sans-serif;
+}

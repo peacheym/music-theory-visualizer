@@ -4,56 +4,38 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="styles.css">
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <title>Music Theory Visualization</title>
-    <style>
-      body {
-        background-color: #FFFDFD;
-      }
-      h1{
-        background-color: #FFFDFD;
-        /* background-color: #f6e8ea; */
-      }
-      hr{
-        margin: 30px 0px;
-      }
-
-      #dropdowns{
-        margin-top: 15px;
-      }
-
-      #chordDropdown, #typeDropdown{
-        display: inline;
-        margin-right: 150px;
-      }
-
-    </style>
   </head>
 
   <body>
+  <div id="information">
+    <h1>Music Theory Visualization</h1>
+    <p>This visulaization framework intends to be a simple to use method for understanding basic music theory concepts such as notes, chords, keys and chord-progressions.</p>
+    <p>How to use:</p>
+    <ul>
+      <li>Piano Keys - This visualization is "read only" meaning that while it provides meaningful information, you do not need to interact with it directly.</li>
+      <li>Key Visualization - This visualization shows the structure of Keys based on a specific root note. A breakdown of the color reasoning is as follows.</li>
+        <ul>
+          <li>Blue &amp; Large &rightarrow; Major Chord</li>
+          <li>Gray &amp; Small &rightarrow; Minor Chord</li>
+          <li>Red &amp; Large &rightarrow; Diminished Chord</li>
+        </ul>
+      <li>Notes Visualization - This visulaization shows all possible notes in a single octave of 12TET music. When you click on a note, you will be selecting it as the <strong>root note</strong> for the rest of the visualizations.</li>
+      <ul>Green &amp; Large &rightarrow; Notes associated with current selection</ul>
+      <ul>Green &amp; Small &rightarrow; Notes not associated with current selection but associated with root note</ul>
 
-  </body>
-
-  <h1>Music Theory Visualization</h1>
-  <p>This visulaization framework intends to be a simple to use method for understanding basic music theory concepts such as notes, chords, keys and chord-progressions.</p>
-  <p>How to use:</p>
-  <ul>
-    <li>Piano Keys - This visualization is "read only" meaning that while it provides meaningful information, you do not need to interact with it directly.</li>
-    <li>Key Visualization - This visualization shows the structure of Keys based on a specific root note. A breakdown of the color reasoning is as follows.</li>
-      <ul>
-        <li>Blue &amp; Large &rightarrow; Major Chord</li>
-        <li>Gray &amp; Small &rightarrow; Minor Chord</li>
-        <li>Red &amp; Large &rightarrow; Diminished Chord</li>
-      </ul>
-    <li>Notes Visualization - This visulaization shows all possible notes in a single octave of 12TET music. When you click on a note, you will be selecting it as the <strong>root note</strong> for the rest of the visualizations.</li>
-    <ul>Green &amp; Large &rightarrow; Notes associated with current selection</ul>
-    <ul>Green &amp; Small &rightarrow; Notes not associated with current selection but associated with root note</ul>
-
-    <ul>Purple &amp; Small &rightarrow; Notes not associated with current selection or root note</ul>
-    <br/>
-    <li>Chord Progression Selector - A list of all supported chord progressions. A new selection will update the chord-progression visualization.</li>
-    <li>Chord Type Selector - A list of all supported chord types. A new selection will update the notes and piano keys visualizations.</li>
-  </ul>
+      <ul>Purple &amp; Small &rightarrow; Notes not associated with current selection or root note</ul>
+      <br/>
+      <li>Chord Progression Selector - A list of all supported chord progressions. A new selection will update the chord-progression visualization.</li>
+      <li>Chord Type Selector - A list of all supported chord types. A new selection will update the notes and piano keys visualizations.</li>
+    </ul>
+  </div>
   <hr/> 
   <div id="piano"></div>
   <div id="mainSVG"></div>
