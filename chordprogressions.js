@@ -10,10 +10,10 @@ var svgContainer = d3
 
 d3.csv("./DataSources/chord-progressions.csv", function (data) {
   d3.select("body").append("br");
-  var dropdownButton = d3.select("#chordDropdown").append("select");
+  progressionDropdown = d3.select("#chordDropdown").append("select").attr("disabled", true)
 
   // add the options to the button
-  dropdownButton // Add a button
+  progressionDropdown // Add a button
     .selectAll("myOptions") // Next 4 lines add 6 options = 6 colors
     .data(data)
     .enter()
@@ -26,7 +26,7 @@ d3.csv("./DataSources/chord-progressions.csv", function (data) {
     }); // corresponding value returned by the button
 
   /* -- Define the onchange function for the selection operations */
-  dropdownButton.on("change", function (d) {
+  progressionDropdown.on("change", function (d) {
     var selectedOption = d3.select(this).property("value");
     var thisProgression = null;
     for (i in data) {

@@ -324,3 +324,6 @@ var blackKeyCircles = null;
 var blackKeyCircles2 = null;
 
 var pianoLabel = null;
+
+var proressionDropdown = null;
+var chordTypeDropdown = null;

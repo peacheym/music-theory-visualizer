@@ -2,12 +2,15 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
   let selectedChordType = null;
   let selectedNote = null;
   /* Build the Select / Options here*/
-  var dropdownButton = d3.select("#typeDropdown").append("select");
+  chordTypeDropdown = d3
+    .select("#typeDropdown")
+    .append("select")
+    .attr("disabled", true);
 
   let uniqueChordTypes = [...new Set(data.map((item) => item.chord_type))];
 
   // add the options to the button
-  dropdownButton // Add a button
+  chordTypeDropdown // Add a button
     .selectAll("myOptions") // Next 4 lines add 6 options = 6 colors
     .data(uniqueChordTypes)
     .enter()
@@ -20,7 +23,7 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     }); // corresponding value returned by the button
 
   /* -- Define the onchange function for the selection operations */
-  dropdownButton.on("change", function (d) {
+  chordTypeDropdown.on("change", function (d) {
     var selectedOption = d3.select(this).property("value");
     selectedChordType = selectedOption;
 
@@ -30,14 +33,11 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
       );
     });
 
-
     for (i in data) {
       if (data[i].chord_root != selectedNote) {
         continue;
       }
-      // console.log(data[i].chord_root);
       if (data[i].chord_type == selectedOption) {
-        console.log("found");
         associated_notes = data[i].notes.split("$");
       }
     }
@@ -127,6 +127,8 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
     )
     .on("click", function (d, i) {
       clickNode(d.key);
+      chordTypeDropdown.attr("disabled", null);
+      progressionDropdown.attr("disabled", null)
     });
 
   // Features of the forces applied to the nodes:
@@ -241,6 +243,8 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
   }
 
   function clickNode(note) {
+    d3.select("#chordDropdown").attr("disabled", false);
+
     selectedNote = note;
     selectedChordType = null;
     associated_notes = findNotes(note);
@@ -328,7 +332,6 @@ d3.csv("./DataSources/chord-structure.csv", function (data) {
   function getGroup(note, chord_type) {
     // if (chord_type == null) {
     if (associated_notes) {
-      console.log(associated_notes);
       if (associated_notes.includes(note)) {
         return 2 * (width / 4) - 100;
       } else {
