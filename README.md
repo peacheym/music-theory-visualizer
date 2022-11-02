@@ -1,6 +1,6 @@
 # Vis Project
 
-Term project for CSCI 6406 (Visualization) in the Winter 2022 semester.
+Term project for CSCI 6406 in Winter 2022
 
 ## Seminar Paper
 
@@ -19,6 +19,7 @@ Music Theory Topic Visualization
 
 ### Screenshot of Interface
 
+![music_vis_ss](https://user-images.githubusercontent.com/15327742/199529130-7ee44bcb-13c3-4e39-be4d-38cafead7259.png)
 
 ### Datasets Used
 
