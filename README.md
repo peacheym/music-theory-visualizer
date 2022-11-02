@@ -17,6 +17,9 @@ Music Theory Topic Visualization
 - Scales
 - How these items all connect to one another.
 
+### Screenshot of Interface
+
+
 ### Datasets Used
 
 - Chords Structure and note names | [link](https://data.world/gianca1976/chords-structure-and-note-names)
