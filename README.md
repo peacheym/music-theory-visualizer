@@ -1,6 +1,6 @@
 # Vis Project
 
-Term project for CSCI 6406 in Winter 2022
+Term project for CSCI 6406 (Visualization) in the Winter 2022 semester.
 
 ## Seminar Paper
 
